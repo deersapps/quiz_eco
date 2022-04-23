@@ -1,10 +1,8 @@
-package com.jkdeers.activitygame.ui;
+package com.jkdeers.activitygame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-
-import com.jkdeers.activitygame.R;
 
 public class StartActivity extends AppCompatActivity {
 
