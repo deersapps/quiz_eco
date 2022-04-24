@@ -86,25 +86,34 @@
                     android:textColorHint="@color/colorWhite" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!--Create a TextInputLayout and choose the style,
+        for now we are choosing the OutlinedBox ExposedDropdownMenu   -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+
+                android:theme="@style/Theme.MaterialComponents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:backgroundTint="@color/colorWhite"
-                android:textColorHint="@color/colorWhite"
-                app:hintTextColor="@color/colorWhite">
+                android:importantForAutofill="no"
+                android:paddingBottom="@dimen/_15sdp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite">
 
-                <Spinner
+                <!-- Inside text input layout add
+                      an auto complete text view
+                        and make its input type to none-->
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:backgroundTint="@color/colorWhite"
-                    android:hint="Last name"
-                    android:importantForAutofill="no"
-                    android:inputType="textEmailAddress"
-                    android:paddingBottom="@dimen/_15sdp"
-                    android:textColor="@color/colorWhite"
-                    android:textColorHint="@color/colorWhite" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Country"
+                    />
+
             </com.google.android.material.textfield.TextInputLayout>
 
 
