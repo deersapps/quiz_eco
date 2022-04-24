@@ -29,4 +29,784 @@
     <string name="address">SDA Colony Bemina, Srinagar-190006\nParyawaran Bhawan, Gladeni, Narwal Jammu-180010</string>
     <string name="introline">MAPPING AND GEOTAGGING \n WATERBODIES AND WETLANDS</string>
     <string name="web_address">Web: www.jkdeers.com Email: dirjkers@gmail.com</string>
+
+    <string name="sign_up"><u>Sign up</u></string>
+    <string name="sign_up_non_underline">Sign up</string>
+    <string name="log_in"><u>Log In</u></string>
+    <string name="log_in_non_underline">Log In</string>
+    <string name="send_a_new_code"><u>Send a new code</u></string>
+    <string name="dummy_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\n\nIt has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged</string>
+    <string name="dummy_text_with_list">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\n\nIt has survived not only five centuries, \n\u2022 but also the leap into electronic typesetting \n\u2022 Remaining essentially unchanged.  \n\u2022 Suspendisse eleifend arcu sed odio eleifend, a sodales orci facilisis. \n\u2022 Ut ut ipsum quis neque maximus faucibus eget a ante. \n\u2022 Phasellus sit amet nulla nec velit euismod consequat dictum bibendum tellus. \n\u2022 Quisque ac nunc vulputate, accumsan metus ut, dignissim velit.</string>
+    <string name="dummy_title">Welcome to Fone</string>
+    <string-array name="array_city">
+        <item>City</item>
+        <item>New York</item>
+        <item>LA</item>
+        <item>California</item>
+    </string-array>
+    <string-array name="array_sort">
+        <item>Newest</item>
+        <item>Top</item>
+        <item>Useful</item>
+        <item>Relevance</item>
+    </string-array>
+    <string-array name="country_codes">
+        <item>93,AF</item>
+        <item>355,AL</item>
+        <item>213,DZ</item>
+        <item>376,AD</item>
+        <item>244,AO</item>
+        <item>672,AQ</item>
+        <item>54,AR</item>
+        <item>374,AM</item>
+        <item>297,AW</item>
+        <item>61,AU</item>
+        <item>43,AT</item>
+        <item>994,AZ</item>
+        <item>973,BH</item>
+        <item>880,BD</item>
+        <item>375,BY</item>
+        <item>32,BE</item>
+        <item>501,BZ</item>
+        <item>229,BJ</item>
+        <item>975,BT</item>
+        <item>591,BO</item>
+        <item>387,BA</item>
+        <item>267,BW</item>
+        <item>55,BR</item>
+        <item>673,BN</item>
+        <item>359,BG</item>
+        <item>226,BF</item>
+        <item>95,MM</item>
+        <item>257,BI</item>
+        <item>855,KH</item>
+        <item>237,CM</item>
+        <item>1,CA</item>
+        <item>238,CV</item>
+        <item>236,CF</item>
+        <item>235,TD</item>
+        <item>56,CL</item>
+        <item>86,CN</item>
+        <item>61,CX</item>
+        <item>61,CC</item>
+        <item>57,CO</item>
+        <item>269,KM</item>
+        <item>242,CG</item>
+        <item>243,CD</item>
+        <item>682,CK</item>
+        <item>506,CR</item>
+        <item>385,HR</item>
+        <item>53,CU</item>
+        <item>357,CY</item>
+        <item>420,CZ</item>
+        <item>45,DK</item>
+        <item>253,DJ</item>
+        <item>670,TL</item>
+        <item>593,EC</item>
+        <item>20,EG</item>
+        <item>503,SV</item>
+        <item>240,GQ</item>
+        <item>291,ER</item>
+        <item>372,EE</item>
+        <item>251,ET</item>
+        <item>500,FK</item>
+        <item>298,FO</item>
+        <item>679,FJ</item>
+        <item>358,FI</item>
+        <item>33,FR</item>
+        <item>689,PF</item>
+        <item>241,GA</item>
+        <item>220,GM</item>
+        <item>995,GE</item>
+        <item>49,DE</item>
+        <item>233,GH</item>
+        <item>350,GI</item>
+        <item>30,GR</item>
+        <item>299,GL</item>
+        <item>502,GT</item>
+        <item>224,GN</item>
+        <item>245,GW</item>
+        <item>592,GY</item>
+        <item>509,HT</item>
+        <item>504,HN</item>
+        <item>852,HK</item>
+        <item>36,HU</item>
+        <item>91,IN</item>
+        <item>62,ID</item>
+        <item>98,IR</item>
+        <item>964,IQ</item>
+        <item>353,IE</item>
+        <item>44,IM</item>
+        <item>972,IL</item>
+        <item>39,IT</item>
+        <item>225,CI</item>
+        <item>81,JP</item>
+        <item>962,JO</item>
+        <item>7,KZ</item>
+        <item>254,KE</item>
+        <item>686,KI</item>
+        <item>965,KW</item>
+        <item>996,KG</item>
+        <item>856,LA</item>
+        <item>371,LV</item>
+        <item>961,LB</item>
+        <item>266,LS</item>
+        <item>231,LR</item>
+        <item>218,LY</item>
+        <item>423,LI</item>
+        <item>370,LT</item>
+        <item>352,LU</item>
+        <item>853,MO</item>
+        <item>389,MK</item>
+        <item>261,MG</item>
+        <item>265,MW</item>
+        <item>60,MY</item>
+        <item>960,MV</item>
+        <item>223,ML</item>
+        <item>356,MT</item>
+        <item>692,MH</item>
+        <item>222,MR</item>
+        <item>230,MU</item>
+        <item>262,YT</item>
+        <item>52,MX</item>
+        <item>691,FM</item>
+        <item>373,MD</item>
+        <item>377,MC</item>
+        <item>976,MN</item>
+        <item>382,ME</item>
+        <item>212,MA</item>
+        <item>258,MZ</item>
+        <item>264,NA</item>
+        <item>674,NR</item>
+        <item>977,NP</item>
+        <item>31,NL</item>
+        <item>599,AN</item>
+        <item>687,NC</item>
+        <item>64,NZ</item>
+        <item>505,NI</item>
+        <item>227,NE</item>
+        <item>234,NG</item>
+        <item>683,NU</item>
+        <item>850,KP</item>
+        <item>47,NO</item>
+        <item>968,OM</item>
+        <item>92,PK</item>
+        <item>680,PW</item>
+        <item>507,PA</item>
+        <item>675,PG</item>
+        <item>595,PY</item>
+        <item>51,PE</item>
+        <item>63,PH</item>
+        <item>870,PN</item>
+        <item>48,PL</item>
+        <item>351,PT</item>
+        <item>1,PR</item>
+        <item>974,QA</item>
+        <item>40,RO</item>
+        <item>7,RU</item>
+        <item>250,RW</item>
+        <item>590,BL</item>
+        <item>685,WS</item>
+        <item>378,SM</item>
+        <item>239,ST</item>
+        <item>966,SA</item>
+        <item>221,SN</item>
+        <item>381,RS</item>
+        <item>248,SC</item>
+        <item>232,SL</item>
+        <item>65,SG</item>
+        <item>421,SK</item>
+        <item>386,SI</item>
+        <item>677,SB</item>
+        <item>252,SO</item>
+        <item>27,ZA</item>
+        <item>82,KR</item>
+        <item>34,ES</item>
+        <item>94,LK</item>
+        <item>290,SH</item>
+        <item>508,PM</item>
+        <item>249,SD</item>
+        <item>597,SR</item>
+        <item>268,SZ</item>
+        <item>46,SE</item>
+        <item>41,CH</item>
+        <item>963,SY</item>
+        <item>886,TW</item>
+        <item>992,TJ</item>
+        <item>255,TZ</item>
+        <item>66,TH</item>
+        <item>228,TG</item>
+        <item>690,TK</item>
+        <item>676,TO</item>
+        <item>216,TN</item>
+        <item>90,TR</item>
+        <item>993,TM</item>
+        <item>688,TV</item>
+        <item>971,AE</item>
+        <item>256,UG</item>
+        <item>44,GB</item>
+        <item>380,UA</item>
+        <item>598,UY</item>
+        <item>1,US</item>
+        <item>998,UZ</item>
+        <item>678,VU</item>
+        <item>39,VA</item>
+        <item>58,VE</item>
+        <item>84,VN</item>
+        <item>681,WF</item>
+        <item>967,YE</item>
+        <item>260,ZM</item>
+        <item>263,ZW</item>
+    </string-array>
+    <string-array name="array_shipping_method">
+        <item>Choose a method</item>
+        <item>DHL</item>
+        <item>Regular</item>
+        <item>Cargo</item>
+    </string-array>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="profile_width">75dp</dimen>
+    <dimen name="profile_height">75dp</dimen>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+    <string name="shop_your_favorite">Shop your favorite</string>
+    <string name="personalise_your_favorite_brand_by_following_the_top_brands">Personalise your favorite brand by following the top brands</string>
+    <string name="_1_piece">1 piece</string>
+    <string name="_4_5">$4.5</string>
+    <string name="womens_top">Womens Top</string>
+    <string name="hey_when_will_my_order_arrive">Hey! When will my order arrive</string>
+    <string name="_2_00_pm">2.00 pm</string>
+    <string name="blue">Blue</string>
+    <string name="move_to_bag">Move to Bag</string>
+    <string name="color">Color:</string>
+    <string name="m">M</string>
+    <string name="size">Size:</string>
+    <string name="_4_99">$4.99</string>
+    <string name="_3_99">$3.99</string>
+    <string name="_2percent">-10%</string>
+    <string name="main_stream">Main Stream</string>
+    <string name="spring_collection">Spring Collection</string>
+    <string name="_20_off">20% OFF</string>
+    <string name="for_selected_spring_style">For Selected Spring Style</string>
+    <string name="up_to_70_off">Up to 70% OFF</string>
+    <string name="goldstar">GoldStar</string>
+    <string name="_1">1</string>
+    <string name="add">+</string>
+    <string name="subtract">-</string>
+    <string name="earnings">Earnings</string>
+    <string name="online">Online</string>
+    <string name="_3_items_30_june_2020">3 items|30 June 2020</string>
+    <string name="_5_30">$5.30</string>
+    <string name="_75_00">$75.00</string>
+    <string name="order_num_21215">Order Num 21215</string>
+    <string name="x">x</string>
+    <string name="nike_t_shirt">Nike T- Shirt</string>
+    <string name="_20">$20</string>
+    <string name="_3_items">3 items</string>
+    <string name="order_no_25465612">Order no. 25465612</string>
+    <string name="_20_50">$20.50</string>
+    <string name="_20_january_12_35am">20 January, 12:35am</string>
+    <string name="ram_dhakal">Ram Dhakal</string>
+    <string name="_30_00">$30.00</string>
+    <string name="_64_items_left">64 items left</string>
+    <string name="summer_wear_top">Summer wear top</string>
+    <string name="hey_can_you_please_help_me_out_with_my_delivery_i_was_wondering_if_you_can_delivery_it_today_please">Hey can you please help me out with my delivery I was wondering if you can delivery it today please.</string>
+    <string name="now">Now</string>
+    <string name="bank_info">Bank Info</string>
+    <string name="account_holder_name">Account Holder Name</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="branch_code">Branch Code</string>
+    <string name="account_number">Account Number</string>
+    <string name="enter_amount_to_transfer">Enter amount to transfer</string>
+    <string name="type_your_message">Type your message</string>
+    <string name="upload_a_photo">Upload a photo</string>
+    <string name="seller_info">Seller Info</string>
+    <string name="seller_name">Seller Name</string>
+    <string name="category">Category</string>
+    <string name="_9779885121465">+9779885121465</string>
+    <string name="storename_gmail_com">storename@gmail.com</string>
+    <string name="store_address">Store Address</string>
+    <string name="north_eastern_coast_new_york">North eastern Coast, New York</string>
+    <string name="store_openings">Store Openings</string>
+    <string name="open_timings">Open Timings</string>
+    <string name="_10_00_am">10:00 am</string>
+    <string name="close_timing">Close Timing</string>
+    <string name="_17_00_pm">17:00 pm</string>
+    <string name="update">Update</string>
+    <string name="company_policy">Company Policy</string>
+    <string name="total_delivery">Total Delivery</string>
+    <string name="total_order">Total Order</string>
+    <string name="_1090">1090</string>
+    <string name="total_credits">Total Credits</string>
+    <string name="most_delivery">Most Delivery</string>
+    <string name="kathmandu">Kathmandu</string>
+    <string name="lalitpur">Lalitpur</string>
+    <string name="bhaktapur">Bhaktapur</string>
+    <string name="least_delivery">Least Delivery</string>
+    <string name="our_vision">Our Vision</string>
+    <string name="wish_list">Wish List</string>
+    <string name="shop">Categories</string>
+    <string name="designer_collection">Designer Collection</string>
+    <string name="popular_item">Popular Product</string>
+    <string name="top_trends">Top Trends</string>
+    <string name="charge">Charge</string>
+    <string name="_10_00">$10.00</string>
+    <string name="time">Time</string>
+    <string name="_4_5_days">4–5 days</string>
+    <string name="countries">Countries</string>
+    <string name="worldwide">Worldwide</string>
+    <string name="fly_like_the_sky_high_in_the_world">Fly like the sky high in the world</string>
+    <string name="my_addresses">My Addresses</string>
+    <string name="account">Account</string>
+    <string name="notification">Notification</string>
+    <string name="devices">Devices</string>
+    <string name="language">Language</string>
+    <string name="log_out">Log Out</string>
+    <string name="explore">Explore</string>
+    <string name="available_balance">Available Balance</string>
+    <string name="_500_56">$500.56</string>
+    <string name="send_to_bank">Send to Bank</string>
+    <string name="recent_activity">Recent Activity</string>
+    <string name="b11_old_ford_street_workshop_tower_plant_new_york">B11 Old Ford Street, Workshop Tower plant, New York</string>
+    <string name="_50_25">$50.25</string>
+    <string name="view_billing">View Billing</string>
+    <string name="_255_5">$255.5</string>
+    <string name="send_your_query_to_us">Send your query to us</string>
+    <string name="your_word_means_a_lot_to_us">Your word means a lot to us.</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="your_message">Your Message</string>
+    <string name="total_sales">Total Sales</string>
+    <string name="_500">500</string>
+    <string name="deliveries">Delivered</string>
+    <string name="_190">190</string>
+    <string name="total_products">Total Products</string>
+    <string name="_200">2000</string>
+    <string name="pending">Pending</string>
+    <string name="_18">18</string>
+    <string name="most_sales_demin_jeans">Most Sales</string>
+    <string name="demin_jeans">Demin Jeans</string>
+    <string name="average">Average</string>
+    <string name="nike_boots">Nike Boots</string>
+    <string name="baggy_pants">Baggy Pants</string>
+    <string name="least_sales">Least Sales</string>
+    <string name="my_account">My Account</string>
+    <string name="abc_trading_pvt_ltd">ABC Trading Pvt. Ltd.</string>
+    <string name="kalimati_bazar">Kalimati Bazar</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="terms_and_condition">Terms and Condition</string>
+    <string name="about_us">About Us</string>
+    <string name="insights">Insights</string>
+    <string name="filter">Filter</string>
+    <string name="price_range">Price Range</string>
+    <string name="_0">$0</string>
+    <string name="_100000">$1000</string>
+    <string name="size1">Size</string>
+    <string name="apply">Apply</string>
+    <string name="reset">Reset</string>
+    <string name="order_info">Order Info</string>
+    <string name="_255_50">$255.50</string>
+    <string name="success_you_ve_added_nthis_item_to_your_bag">Success! You\'ve added\nthis item to your bag</string>
+    <string name="winter_collection">Winter Collection</string>
+    <string name="shop_now">Shop Now</string>
+    <string name="login">Login</string>
+    <string name="enter_the_code_nto_verify_your_phone">Enter the Code \nto Verify Your Phone</string>
+    <string name="we_have_sent_an_verification_code_to_the_phone_number_977984123456">We have sent an verification code to the phone number +977984123456</string>
+    <string name="submit">Submit</string>
+    <string name="create_nyour_account">Create \nyour account</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="by_signing_i_agree_to_the_terms_and_policy">By signing, I agree to the terms and policy</string>
+    <string name="sign_up_with_facebook">Sign up with Facebook</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="log_into_nyour_account">Log into \nyour account</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forget">Forget Password?</string>
+    <string name="remember_me">Remember me</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="if_you_need_help_reseting_your_password_we_can_help_by_resending_a_link_to_your_email">If you need help reseting your password we can help by resending a link to your email.</string>
+    <string name="send">Send</string>
+    <string name="let_s_get_started">Let\'s get started</string>
+    <string name="select_a_user">Select a user</string>
+    <string name="buyer">Buyer</string>
+    <string name="admin">Admin</string>
+    <string name="delivery">Delivery</string>
+    <string name="delivered_successfully">Delivered Successfully !</string>
+    <string name="thank_you_for_deliver_safely_and_on_time">Thank you for deliver safely\nand on time.</string>
+    <string name="total_km">Total Km</string>
+    <string name="view_order_info">View Order Info</string>
+    <string name="your_earning">Your Earning</string>
+    <string name="view_earnings">View Earnings</string>
+    <string name="_40_50">$40.50</string>
+    <string name="back_to_home">Back to Home</string>
+    <string name="accept_delivery">Accept Delivery</string>
+    <string name="marked_as_delivered">Marked as delivered</string>
+    <string name="pick_point">Pick Point</string>
+    <string name="nhuja_shakya">Tim Hardy</string>
+    <string name="delivery_point">Delivery Point</string>
+    <string name="markd_as_picked">Marked as picked</string>
+    <string name="congrats">Order Successful</string>
+    <string name="thank_you_for_purchasing_your_order_nwill_be_delivered_within_2_4days">Thank you for purchasing. Your Order\nwill be delivered within 2–4days.</string>
+    <string name="continue_shopping">Continue Shopping</string>
+    <string name="add_to_bag">Add to Bag</string>
+    <string name="step_1">Step 1</string>
+    <string name="shipping">Shipping</string>
+    <string name="fullname">Fullname</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="save_for_faster_checkout_next_time">Save for faster checkout next time</string>
+    <string name="continue_to_payment">Continue to Payment</string>
+    <string name="lv_jacket_hoddy">LV Jacket Hoddy</string>
+    <string name="_250_ratings">250 ratings</string>
+    <string name="step_2">Step 2</string>
+    <string name="payment">Payment</string>
+    <string name="total_payment">Total</string>
+    <string name="_1250">$290</string>
+    <string name="visa">Visa</string>
+    <string name="paypal">Paypal</string>
+    <string name="proceed">Proceed</string>
+    <string name="women_s_top">Women\'s Top</string>
+    <string name="_650_items_found">650 items found</string>
+    <string name="my_bag">My Bag</string>
+    <string name="checkout">Checkout</string>
+    <string name="templete">Templete</string>
+    <string name="collection_of_greatness">Collection of Greatness</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="brishav_shakya">Tom Helson</string>
+    <string name="ordered_by">Ordered By</string>
+    <string name="make_delivery">Make Delivery</string>
+    <string name="the_product_was_brilliant2">The product was brilliant. I would like to shop from this place again.</string>
+    <string name="the_product_was_brilliant1">The product was amazing.</string>
+    <string name="the_product_was_brilliant3">The product was brilliant. </string>
+    <string name="ranzan_shakya">John Johnson</string>
+    <string name="brand">Brand</string>
+    <string name="forget_password_2">Forget password?</string>
+    <string name="_18_min_6_5_km">18 min (6.5 km)</string>
+    <string name="s">S</string>
+    <string name="l">L</string>
+    <string name="xl">XL</string>
+    <string name="xxl">XXL</string>
+    <string name="_45_99">$45.99</string>
+    <string name="product_info">Product Info</string>
+    <string name="product_name">Product Name</string>
+    <string name="t_shirt">T-Shirt</string>
+    <string name="price">Price</string>
+    <string name="_30_04">$30.04</string>
+    <string name="summer_wear">Summer Wear</string>
+    <string name="change_password">Change Password</string>
+    <string name="you_can_only_change_password_only_once_a_month_do_protect_your_password_wisely">You can only change password only once a month. Do protect your password wisely.</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="_2022_01_01_12_00_00">2022–01–01 12:00:00</string>
+    <string name="oneplus_a600">Oneplus A600</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="choose_your_language">Choose your language</string>
+    <string name="nepal">Nepal</string>
+    <string name="save">Save</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="dummy_lastname">Helson</string>
+    <string name="dummy_firstname">Tom</string>
+    <string name="tomhelsongmail">tomhelson@gmail.com</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="others">Others</string>
+    <string name="bio">Bio</string>
+    <string name="cart">Cart</string>
+    <string name="say_something_about_yourself">Say something about yourself</string>
+    <string name="discover_our_winter_collections">Discover our winter collections</string>
+    <string name="start_shopping">Start Shopping</string>
+    <string name="higher_quality_black_solid_chest_guard_for_men_by_bajrang">Higher Quality Black Solid Chest Guard For Men By Bajrang</string>
+    <string name="x_2">x 2</string>
+    <string name="_6_78">$6.78</string>
+    <string name="_1012809823904802384023">1012809823904802384023</string>
+    <string name="sdvlie">SDVLIE</string>
+    <string name="bank_of_america">Bank of America</string>
+    <string name="tom_hardy">Tom Hardy</string>
+    <string name="activity_overview">Activity Overview</string>
+    <string name="_1500">1500</string>
+    <string name="_3018">3018</string>
+    <string name="orders">Orders</string>
+    <string name="average_delivery_rating_last_month">Average delivery rating last month</string>
+    <string name="_4_6">4.6</string>
+    <string name="total_delivered">Total Delivered</string>
+    <string name="_30230_89">$30230.89</string>
+    <string name="_30231_89">$30231.89</string>
+    <string name="sales">Sales</string>
+    <string name="average_rating_last_month">Average rating last month</string>
+    <string name="_3048">3048</string>
+    <string name="_1530">1530</string>
+    <string name="product_list">Product List</string>
+    <string name="coupon_code">Coupon Code</string>
+    <string name="valid_for_10_days">*Valid for 10 days</string>
+    <string name="redeem">Redeem</string>
+    <string name="delivery_charge">Delivery Charge</string>
+    <string name="_7_5">+$7.5</string>
+    <string name="discount_amount">Discount Amount</string>
+    <string name="_0_5">-$0.5</string>
+    <string name="vat_13">VAT(13%)</string>
+    <string name="_3_0">+$3.0</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="_300">$300</string>
+    <string name="cash_on_delivery">Cash on Delivery</string>
+    <string name="net_banking">Net Banking</string>
+    <string name="creative_touch_dark_green_front_zippered_polar_fleece_jacket">Creative Touch Dark Green Front Zippered Polar Fleece Jacket</string>
+    <string name="overall_rating">Overall Rating</string>
+    <string name="add_photos">Add Photos</string>
+    <string name="click_to_upload_image">Click to upload image</string>
+    <string name="title">Title</string>
+    <string name="what_s_most_important_to_know">What\'s most important to know?</string>
+    <string name="what_is_your_review">What is your review</string>
+    <string name="how_did_you_feel_about_the_product">How did you feel about the product?</string>
+    <string name="submit_review">Submit Review</string>
+    <string name="order_detail">Order Detail</string>
+    <string name="your_order_id_is_82376423">Your order id is : 82376423</string>
+    <string name="this_order_will_shipped_to">This order will shipped to:</string>
+    <string name="_13b_north_road_street_nlondon_england_npos_code_0000">13B North Road Street\nLondon, England\nPOS Code : 0000</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="google_upi">Google UPI</string>
+    <string name="an_email_has_been_sent_to_you_email_with_detail_of_the_product_please_review_for_any_quieries">An email has been sent to you email with detail of the product. Please review for any quieries.</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="remove">Remove</string>
+    <string name="wooops_cart_is_empty">Wooops!! Cart is Empty</string>
+    <string name="looks_like_you_haven_t_added_anything_to_your_cart_yet_you_will_find_many_product_in_our_shop_page">Looks like you haven\'t added anything to your cart yet. You will find many product in our \'Shop\' page.</string>
+
+    <string-array name="countries" formatted="false" translatable="false">
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>American Samoa</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Antigua and Barbuda</item>
+        <item>Argentina</item>
+        <item>Armenia</item>
+        <item>Aruba</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Azerbaijan</item>
+        <item>Bahamas</item>
+        <item>Bahrain</item>
+        <item>Bangladesh</item>
+        <item>Barbados</item>
+        <item>Belarus</item>
+        <item>Belgium</item>
+        <item>Belize</item>
+        <item>Benin</item>
+        <item>Bermuda</item>
+        <item>Bhutan</item>
+        <item>Bolivia</item>
+        <item>Bosnia and Herzegovina</item>
+        <item>Botswana</item>
+        <item>Brazil</item>
+        <item>British Virgin Islands</item>
+        <item>Brunei</item>
+        <item>Bulgaria</item>
+        <item>Burkina Faso</item>
+        <item>Burundi</item>
+        <item>Cambodia</item>
+        <item>Cameroon</item>
+        <item>Canada</item>
+        <item>Canary Islands</item>
+        <item>Cape Verde</item>
+        <item>Cayman Islands</item>
+        <item>Central African Republic</item>
+        <item>Ceuta and Melilla</item>
+        <item>Chad</item>
+        <item>Chile</item>
+        <item>China</item>
+        <item>Colombia</item>
+        <item>Comoros</item>
+        <item>Congo [DRC]</item>
+        <item>Congo [Republic]</item>
+        <item>Costa Rica</item>
+        <item>Croatia</item>
+        <item>Cuba</item>
+        <item>Curaçao</item>
+        <item>Cyprus</item>
+        <item>Czech Republic</item>
+        <item>Côte d’Ivoire</item>
+        <item>Denmark</item>
+        <item>Djibouti</item>
+        <item>Dominica</item>
+        <item>Dominican Republic</item>
+        <item>Ecuador</item>
+        <item>Egypt</item>
+        <item>El Salvador</item>
+        <item>Equatorial Guinea</item>
+        <item>Eritrea</item>
+        <item>Estonia</item>
+        <item>Ethiopia</item>
+        <item>Europe</item>
+        <item>Faroe Islands</item>
+        <item>Fiji</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>French Guiana</item>
+        <item>French Polynesia</item>
+        <item>Gabon</item>
+        <item>Gambia</item>
+        <item>Georgia</item>
+        <item>Germany</item>
+        <item>Ghana</item>
+        <item>Gibraltar</item>
+        <item>Greece</item>
+        <item>Greenland</item>
+        <item>Grenada</item>
+        <item>Guadeloupe</item>
+        <item>Guam</item>
+        <item>Guatemala</item>
+        <item>Guernsey</item>
+        <item>Guinea</item>
+        <item>Guinea-Bissau</item>
+        <item>Guyana</item>
+        <item>Haiti</item>
+        <item>Honduras</item>
+        <item>Hong Kong</item>
+        <item>Hungary</item>
+        <item>Iceland</item>
+        <item>India</item>
+        <item>Indonesia</item>
+        <item>Iran</item>
+        <item>Iraq</item>
+        <item>Ireland</item>
+        <item>Isle of Man</item>
+        <item>Israel</item>
+        <item>Italy</item>
+        <item>Jamaica</item>
+        <item>Japan</item>
+        <item>Jersey</item>
+        <item>Jordan</item>
+        <item>Kazakhstan</item>
+        <item>Kenya</item>
+        <item>Kiribati</item>
+        <item>Kuwait</item>
+        <item>Kyrgyzstan</item>
+        <item>Laos</item>
+        <item>Latin America</item>
+        <item>Latvia</item>
+        <item>Lebanon</item>
+        <item>Lesotho</item>
+        <item>Liberia</item>
+        <item>Libya</item>
+        <item>Liechtenstein</item>
+        <item>Lithuania</item>
+        <item>Luxembourg</item>
+        <item>Macau</item>
+        <item>Macedonia [FYROM]</item>
+        <item>Madagascar</item>
+        <item>Malawi</item>
+        <item>Malaysia</item>
+        <item>Mali</item>
+        <item>Malta</item>
+        <item>Marshall Islands</item>
+        <item>Martinique</item>
+        <item>Mauritania</item>
+        <item>Mauritius</item>
+        <item>Mayotte</item>
+        <item>Mexico</item>
+        <item>Micronesia</item>
+        <item>Moldova</item>
+        <item>Monaco</item>
+        <item>Mongolia</item>
+        <item>Montenegro</item>
+        <item>Morocco</item>
+        <item>Mozambique</item>
+        <item>Myanmar [Burma]</item>
+        <item>Namibia</item>
+        <item>Nepal</item>
+        <item>Netherlands</item>
+        <item>New Caledonia</item>
+        <item>New Zealand</item>
+        <item>Nicaragua</item>
+        <item>Niger</item>
+        <item>Nigeria</item>
+        <item>North Korea</item>
+        <item>Northern Mariana Islands</item>
+        <item>Norway</item>
+        <item>Oman</item>
+        <item>Pakistan</item>
+        <item>Palau</item>
+        <item>Palestine</item>
+        <item>Panama</item>
+        <item>Papua New Guinea</item>
+        <item>Paraguay</item>
+        <item>Peru</item>
+        <item>Philippines</item>
+        <item>Poland</item>
+        <item>Portugal</item>
+        <item>Puerto Rico</item>
+        <item>Qatar</item>
+        <item>Romania</item>
+        <item>Russia</item>
+        <item>Rwanda</item>
+        <item>Réunion</item>
+        <item>Saint Barthélemy</item>
+        <item>Saint Kitts and Nevis</item>
+        <item>Saint Lucia</item>
+        <item>Saint Martin</item>
+        <item>Saint Vincent and the Grenadines</item>
+        <item>Samoa</item>
+        <item>San Marino</item>
+        <item>Saudi Arabia</item>
+        <item>Senegal</item>
+        <item>Serbia</item>
+        <item>Seychelles</item>
+        <item>Sierra Leone</item>
+        <item>Singapore</item>
+        <item>Sint Maarten</item>
+        <item>Slovakia</item>
+        <item>Slovenia</item>
+        <item>Solomon Islands</item>
+        <item>Somalia</item>
+        <item>South Africa</item>
+        <item>South Korea</item>
+        <item>South Sudan</item>
+        <item>Spain</item>
+        <item>Sri Lanka</item>
+        <item>Sudan</item>
+        <item>Suriname</item>
+        <item>Swaziland</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Syria</item>
+        <item>São Tomé and Príncipe</item>
+        <item>Taiwan</item>
+        <item>Tanzania</item>
+        <item>Thailand</item>
+        <item>Timor-Leste</item>
+        <item>Togo</item>
+        <item>Tonga</item>
+        <item>Trinidad and Tobago</item>
+        <item>Tunisia</item>
+        <item>Turkey</item>
+        <item>Turks and Caicos Islands</item>
+        <item>U.S. Outlying Islands</item>
+        <item>U.S. Virgin Islands</item>
+        <item>Uganda</item>
+        <item>Ukraine</item>
+        <item>United Arab Emirates</item>
+        <item>United Kingdom</item>
+        <item>United States</item>
+        <item>Uruguay</item>
+        <item>Uzbekistan</item>
+        <item>Vanuatu</item>
+        <item>Venezuela</item>
+        <item>Vietnam</item>
+        <item>Western Sahara</item>
+        <item>Yemen</item>
+        <item>Zambia</item>
+        <item>Zimbabwe</item>
+        <item>Åland Islands</item>
+    </string-array>
 </resources>

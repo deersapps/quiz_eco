@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.jkdeers.activitygame"
         minSdkVersion 27
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -29,6 +29,9 @@ android {
     buildFeatures {
         viewBinding true
     }
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
 }
 
 dependencies {
@@ -44,4 +47,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.airbnb.android:lottie:5.0.3'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation "androidx.cardview:cardview:1.0.0"
+
+   implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.github.myinnos:AppFontChanger:1.0.3'
+
+   implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
 }

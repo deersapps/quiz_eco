@@ -1,2 +1,3 @@
 rootProject.name = "activitygame"
 include ':app'
+
