@@ -426,7 +426,7 @@
     <string name="sign_up_with_facebook">Sign up with Facebook</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="log_into_nyour_account">Log into \nyour account</string>
-    <string name="username">Username</string>
+    <string name="username">Email</string>
     <string name="password">Password</string>
     <string name="forget">Forget Password?</string>
     <string name="remember_me">Remember me</string>
