@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+
 public class StartActivity extends AppCompatActivity {
 //
 //    @Override
@@ -36,7 +37,10 @@ public class StartActivity extends AppCompatActivity {
 
         final StartActivity sPlashScreen = this;
 
-
+        TypeWriter tv = findViewById(R.id.appname);
+        tv.setCharacterDelay(500);
+        tv.setText("");
+        tv.animateText("One Earth...");
 
         // thread for displaying the SplashScreen
         splashTread = new Thread() {
