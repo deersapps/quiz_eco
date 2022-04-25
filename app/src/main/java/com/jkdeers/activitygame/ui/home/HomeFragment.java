@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
         chart.setHoleRadius(10f);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         Description description = new Description();
-        description.setText("");
+        description.setText("Top 3 Activities %");
         chart.setDescription(description);
 
         return view;

@@ -18,18 +18,15 @@
             android:layout_margin="@dimen/_20sdp"
             android:orientation="vertical">
 
-
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/image_icon"
-                    android:layout_width="75sp"
-                    android:layout_height="75sp"
-                    app:lottie_autoPlay="true"
-                    android:layout_gravity="center"
-                    android:layout_centerInParent="true"
-                    app:lottie_fileName="signup.json"
-                    app:lottie_loop="true"
-                    tools:ignore="DuplicateIds" />
+            <ImageView
+                android:id="@+id/image_icon"
+                android:layout_width="48sp"
+                android:layout_height="48sp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_baseline_how_to_reg_24"
+                android:layout_centerInParent="true"
+                tools:ignore="DuplicateIds">
+            </ImageView>
 
 
             <TextView
@@ -41,7 +38,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="32sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -58,8 +55,9 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:backgroundTint="@color/colorWhite"
                     android:hint="First name"
+                    android:id="@+id/fn_tb"
                     android:importantForAutofill="no"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textImeMultiLine"
                     android:paddingBottom="@dimen/_15sdp"
                     android:textColor="@color/colorWhite"
                     android:textColorHint="@color/colorWhite" />
@@ -79,8 +77,9 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:backgroundTint="@color/colorWhite"
                     android:hint="Last name"
+                    android:id="@+id/ln_tb"
                     android:importantForAutofill="no"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textImeMultiLine"
                     android:paddingBottom="@dimen/_15sdp"
                     android:textColor="@color/colorWhite"
                     android:textColorHint="@color/colorWhite" />
@@ -111,10 +110,65 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:inputType="textImeMultiLine"
-                    android:text="Country"
+                    android:text="District"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+
+                android:theme="@style/Theme.MaterialComponents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="@color/colorWhite"
+                android:importantForAutofill="no"
+                android:paddingBottom="@dimen/_15sdp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite">
+
+                <!-- Inside text input layout add
+                      an auto complete text view
+                        and make its input type to none-->
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewSchool"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="textImeMultiLine"
+                    android:text="School"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+
+                android:theme="@style/Theme.MaterialComponents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="@color/colorWhite"
+                android:importantForAutofill="no"
+                android:paddingBottom="@dimen/_15sdp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite">
+
+                <!-- Inside text input layout add
+                      an auto complete text view
+                        and make its input type to none-->
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewStandard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="textImeMultiLine"
+                    android:text="@string/standard"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -131,6 +185,7 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:backgroundTint="@color/colorWhite"
                     android:hint="@string/username"
+                    android:id="@+id/email_tb"
                     android:importantForAutofill="no"
                     android:inputType="textEmailAddress"
                     android:paddingBottom="@dimen/_15sdp"
@@ -151,34 +206,16 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:backgroundTint="@color/colorWhite"
-                    android:hint="@string/email"
-                    android:importantForAutofill="no"
-                    android:inputType="textEmailAddress"
-                    android:paddingBottom="@dimen/_20sdp"
-                    android:textColor="@color/colorWhite"
-                    android:textColorHint="@color/colorWhite" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorWhite"
-                android:textColorHint="@color/colorWhite"
-                app:hintTextColor="@color/colorWhite">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:backgroundTint="@color/colorWhite"
                     android:hint="@string/phone_number"
+                    android:id="@+id/phone_tb"
                     android:importantForAutofill="no"
                     android:inputType="phone"
                     android:paddingBottom="@dimen/_20sdp"
                     android:textColor="@color/colorWhite"
                     android:textColorHint="@color/colorWhite" />
             </com.google.android.material.textfield.TextInputLayout>
+
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -196,6 +233,7 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:backgroundTint="@color/colorWhite"
                     android:hint="@string/password"
+                    android:id="@+id/password_tb"
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
                     android:paddingBottom="@dimen/_20sdp"

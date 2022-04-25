@@ -18,20 +18,28 @@
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:orientation="vertical"
+        android:gravity="center"
         tools:ignore="UselessParent">
 
 
 
 
-        <com.airbnb.lottie.LottieAnimationView
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:id="@+id/image_icon"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="150sp"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            app:lottie_fileName="earth.json"-->
+<!--            app:lottie_loop="true"-->
+<!--            tools:ignore="DuplicateIds" />-->
+        <ImageView
             android:id="@+id/image_icon"
-            android:layout_width="match_parent"
-            android:layout_height="150sp"
-            app:lottie_autoPlay="true"
-            android:layout_centerInParent="true"
-            app:lottie_fileName="earth.json"
-            app:lottie_loop="true"
-            tools:ignore="DuplicateIds" />
+            android:layout_width="48sp"
+            android:layout_height="48sp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_baseline_login_24">
+        </ImageView>
 
         <TextView
             android:layout_width="wrap_content"

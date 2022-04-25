@@ -383,8 +383,13 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="your_message">Your Message</string>
     <string name="total_sales">Total Sales</string>
+    <string name="school_rank">School Rank</string>
+    <string name="school_rank_num">78</string>
+    <string name="class_rank">Class Rank</string>
+    <string name="class_rank_num">12</string>
     <string name="_500">500</string>
     <string name="deliveries">Delivered</string>
+    <string name="your_rank">Your Overall Rank</string>
     <string name="_190">190</string>
     <string name="total_products">Total Products</string>
     <string name="_200">2000</string>
@@ -392,6 +397,10 @@
     <string name="_18">18</string>
     <string name="most_sales_demin_jeans">Most Sales</string>
     <string name="demin_jeans">Demin Jeans</string>
+    <string name="most_activities">Most Activities</string>
+    <string name="most_activities_name_count">Recycle:15 times</string>
+    <string name="least_activities">Least Activities</string>
+    <string name="least_activities_name_count">Lights off:2 times</string>
     <string name="average">Average</string>
     <string name="nike_boots">Nike Boots</string>
     <string name="baggy_pants">Baggy Pants</string>
@@ -423,6 +432,7 @@
     <string name="create_nyour_account">Create \nyour account</string>
     <string name="email">Email</string>
     <string name="phone_number">Phone Number</string>
+    <string name="standard">Class</string>
     <string name="by_signing_i_agree_to_the_terms_and_policy">By signing, I agree to the terms and policy</string>
     <string name="sign_up_with_facebook">Sign up with Facebook</string>
     <string name="already_have_an_account">Already have an account?</string>
@@ -535,9 +545,11 @@
     <string name="bank_of_america">Bank of America</string>
     <string name="tom_hardy">Tom Hardy</string>
     <string name="activity_overview">Activity Overview</string>
+    <string name="ranking_overview">Your Ranking Overview</string>
     <string name="_1500">1500</string>
     <string name="_3018">3018</string>
     <string name="orders">Orders</string>
+    <string name="first_place">First Rank Points</string>
     <string name="average_delivery_rating_last_month">Average delivery rating last month</string>
     <string name="_4_6">4.6</string>
     <string name="total_delivered">Total Delivered</string>
@@ -546,8 +558,9 @@
     <string name="sales">Sales</string>
     <string name="total_points"> Your Total Points</string>
     <string name="average_rating_last_month">Average rating last month</string>
-    <string name="_3048">3048</string>
-    <string name="_1530">1530</string>
+    <string name="stars_earned">Stars Earned (1 each 10,000 Points)</string>
+    <string name="_3048">323232048</string>
+    <string name="your_rank_number">999</string>
     <string name="product_list">Product List</string>
     <string name="coupon_code">Coupon Code</string>
     <string name="valid_for_10_days">*Valid for 10 days</string>
