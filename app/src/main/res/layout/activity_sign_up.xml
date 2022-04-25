@@ -37,8 +37,8 @@
                 android:text="@string/create_nyour_account"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp"
+                android:textColor="@color/colorTheme"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -216,6 +216,27 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                app:hintTextColor="@color/colorWhite">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:backgroundTint="@color/colorWhite"
+                    android:hint="@string/username_created"
+                    android:id="@+id/username_tb"
+                    android:importantForAutofill="no"
+                    android:inputType="textImeMultiLine"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

@@ -42,7 +42,8 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tvForgetPassword:{
-                startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
+                startActivity(new Intent(getApplicationContext(),ForgetPasswordActivity.class));
+                finish();
                 break;
             }
             case R.id.btnLogin:{

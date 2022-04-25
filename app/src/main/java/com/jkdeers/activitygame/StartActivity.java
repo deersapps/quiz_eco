@@ -15,7 +15,7 @@ public class StartActivity extends AppCompatActivity {
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //    }
 
-    protected int _splashTime = 7000;
+    protected int _splashTime = 1000;
 
     private Thread splashTread;
 

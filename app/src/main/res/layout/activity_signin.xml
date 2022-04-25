@@ -49,8 +49,8 @@
             android:text="@string/log_into_nyour_account"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/colorWhite"
-            android:textSize="32sp"
+            android:textColor="@color/colorTheme"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout

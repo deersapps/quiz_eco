@@ -49,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             }
             case R.id.btnSignUp:{
-                startActivity(new Intent(getApplicationContext(), Signin.class));
+                startActivity(new Intent(getApplicationContext(), VerificationActivity.class));
                 finish();
                 break;
             }

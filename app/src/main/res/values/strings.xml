@@ -398,9 +398,9 @@
     <string name="most_sales_demin_jeans">Most Sales</string>
     <string name="demin_jeans">Demin Jeans</string>
     <string name="most_activities">Most Activities</string>
-    <string name="most_activities_name_count">Recycle:15 times</string>
+    <string name="most_activities_name_count">Recycle : 15 times</string>
     <string name="least_activities">Least Activities</string>
-    <string name="least_activities_name_count">Lights off:2 times</string>
+    <string name="least_activities_name_count">Lights off : 2 times</string>
     <string name="average">Average</string>
     <string name="nike_boots">Nike Boots</string>
     <string name="baggy_pants">Baggy Pants</string>
@@ -427,7 +427,7 @@
     <string name="shop_now">Shop Now</string>
     <string name="login">Login</string>
     <string name="enter_the_code_nto_verify_your_phone">Enter the Code \nto Verify Your Phone</string>
-    <string name="we_have_sent_an_verification_code_to_the_phone_number_977984123456">We have sent an verification code to the phone number +977984123456</string>
+    <string name="we_have_sent_an_verification_code_to_the_phone_number_977984123456">We have sent an verification code \n to your phone number</string>
     <string name="submit">Submit</string>
     <string name="create_nyour_account">Create \nyour account</string>
     <string name="email">Email</string>
@@ -438,12 +438,13 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="log_into_nyour_account">Log into \nyour account</string>
     <string name="username">Email</string>
+    <string name="username_created">Username</string>
     <string name="password">Password</string>
     <string name="forget">Forget Password?</string>
     <string name="remember_me">Remember me</string>
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
-    <string name="if_you_need_help_reseting_your_password_we_can_help_by_resending_a_link_to_your_email">If you need help reseting your password we can help by resending a link to your email.</string>
+    <string name="if_you_need_help_reseting_your_password_we_can_help_by_resending_a_link_to_your_email">Enter the registered phone number to get your password.</string>
     <string name="send">Send</string>
     <string name="let_s_get_started">Let\'s get started</string>
     <string name="select_a_user">Select a user</string>
