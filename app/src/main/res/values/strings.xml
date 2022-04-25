@@ -397,6 +397,7 @@
     <string name="baggy_pants">Baggy Pants</string>
     <string name="least_sales">Least Sales</string>
     <string name="my_account">My Account</string>
+    <string name="todo">TODO</string>
     <string name="abc_trading_pvt_ltd">ABC Trading Pvt. Ltd.</string>
     <string name="kalimati_bazar">Kalimati Bazar</string>
     <string name="edit_profile">Edit Profile</string>
@@ -541,8 +542,9 @@
     <string name="_4_6">4.6</string>
     <string name="total_delivered">Total Delivered</string>
     <string name="_30230_89">$30230.89</string>
-    <string name="_30231_89">$30231.89</string>
+    <string name="_30231_89">30231</string>
     <string name="sales">Sales</string>
+    <string name="total_points"> Your Total Points</string>
     <string name="average_rating_last_month">Average rating last month</string>
     <string name="_3048">3048</string>
     <string name="_1530">1530</string>
