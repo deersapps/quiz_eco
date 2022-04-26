@@ -21,12 +21,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_20sdp"
-        tools:ignore="MissingConstraints">
-
+<!--    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="@dimen/_20sdp"-->
+<!--        tools:ignore="MissingConstraints">-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_20sdp">
         <LinearLayout
             android:id="@+id/llLoginForm"
             android:layout_width="match_parent"
@@ -113,6 +116,7 @@
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_200sdp"
                 android:layout_gravity="center"
+                android:layout_margin="@dimen/_10sdp"
                 android:src="@drawable/kidsavesearthresized">
 
             </ImageView>
@@ -124,8 +128,11 @@
                 android:background="@drawable/button_background_dark"
                 android:elevation="4dp"
                 android:text="@string/addit"
+
+                android:layout_marginBottom="@dimen/_50sdp"
                 android:textAllCaps="false" />
         </LinearLayout>
+        </ScrollView>
+<!--    </RelativeLayout>-->
 
-    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
