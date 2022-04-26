@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -15,10 +17,15 @@ import android.widget.Button;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnSignUp;
     Button btnLogIn;
+    private String android_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        Log.d("*************************************************************************", android_id);
         // get reference to the string array that we just created
 
         String[] countries = getResources().getStringArray(R.array.countries);
