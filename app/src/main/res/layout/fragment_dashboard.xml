@@ -117,6 +117,7 @@
                 android:layout_height="@dimen/_200sdp"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_10sdp"
+                android:visibility="gone"
                 android:src="@drawable/kidsavesearthresized">
 
             </ImageView>
