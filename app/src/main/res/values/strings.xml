@@ -31,6 +31,7 @@
     <string name="web_address">Web: www.jkdeers.com Email: dirjkers@gmail.com</string>
 
     <string name="sign_up"><u>Sign up</u></string>
+    <string name="add_photo"><u>Add Photo</u></string>
     <string name="sign_up_non_underline">Sign up</string>
     <string name="log_in"><u>Log In</u></string>
     <string name="log_in_non_underline">Log In</string>
@@ -426,13 +427,16 @@
     <string name="winter_collection">Winter Collection</string>
     <string name="shop_now">Shop Now</string>
     <string name="login">Login</string>
+    <string name="addit">Add Activity</string>
     <string name="enter_the_code_nto_verify_your_phone">Enter the Code \nto Verify Your Phone</string>
     <string name="we_have_sent_an_verification_code_to_the_phone_number_977984123456">We have sent an verification code \n to your phone number</string>
     <string name="submit">Submit</string>
     <string name="create_nyour_account">Create \nyour account</string>
+    <string name="eco_add_new">Add a new eco-activity</string>
     <string name="email">Email</string>
     <string name="phone_number">Phone Number</string>
     <string name="standard">Class</string>
+    <string name="consent_user_add">I agree, this activity was performed by me</string>
     <string name="by_signing_i_agree_to_the_terms_and_policy">By signing, I agree to the terms and policy</string>
     <string name="sign_up_with_facebook">Sign up with Facebook</string>
     <string name="already_have_an_account">Already have an account?</string>
