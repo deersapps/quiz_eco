@@ -43,7 +43,7 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
         switch (view.getId()){
             case R.id.tvForgetPassword:{
                 startActivity(new Intent(getApplicationContext(),ForgetPasswordActivity.class));
-                finish();
+               // finish();
                 break;
             }
             case R.id.btnLogin:{
@@ -53,7 +53,7 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
             }
             case R.id.btnSignUp:{
                 startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
-                finish();
+              //  finish();
                 break;
             }
         }
