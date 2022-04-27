@@ -551,6 +551,8 @@
     <string name="tom_hardy">Tom Hardy</string>
     <string name="activity_overview">Activity Overview</string>
     <string name="ranking_overview">Your Ranking Overview</string>
+    <string name="ranks_by_school">Ranks by School</string>
+    <string name="ranks_by_class">Ranks by Class</string>
     <string name="_1500">1500</string>
     <string name="_3018">3018</string>
     <string name="orders">Orders</string>
