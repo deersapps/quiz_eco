@@ -99,6 +99,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:backgroundTint="@color/colorWhite"
                 android:buttonTint="@color/colorWhite"
+                android:id="@+id/addActivityCheckBox"
                 android:text="@string/consent_user_add"
                 android:textColor="@color/colorWhite" />
 
@@ -119,8 +120,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_10sdp"
                 android:visibility="gone"
-                android:id="@+id/imageCapture"
-                android:src="@drawable/kidsavesearthresized">
+                android:id="@+id/imageCapture">
 
             </ImageView>
 

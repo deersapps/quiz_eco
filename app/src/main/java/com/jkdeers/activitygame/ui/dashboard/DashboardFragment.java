@@ -3,6 +3,7 @@ package com.jkdeers.activitygame.ui.dashboard;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,6 +28,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +37,7 @@ import android.widget.VideoView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -121,6 +126,7 @@ public class DashboardFragment extends Fragment {
         });
         Button camButton = binding.btnAddPhoto;
         Button submitButton = binding.btnAddActivity;
+        CheckBox consent = binding.addActivityCheckBox;
         camButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -138,15 +144,19 @@ public class DashboardFragment extends Fragment {
         });
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-
+            public void onClick(View view) {
+                if (imgPreviewassets.getDrawable() == null) {
+                    showPopup("Please take pic");
+                } else if (!consent.isChecked()) {
+                    showPopup("Please check the consent checkbox");
+                } else {
                     try {
                         upload();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
+            }
 
         });
         return root;
@@ -517,6 +527,27 @@ public class DashboardFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
         queue.add(stringRequest);
+
+    }
+    private void showPopup( String message) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setMessage(message)
+                .setNegativeButton("Ok", null);
+
+        AlertDialog alert1 = alert.create();
+        alert1.show();
+        // Getting the view elements
+        TextView textView = alert1.getWindow().findViewById(android.R.id.message);
+        //TextView alertTitle = (TextView) alert1.getWindow().findViewById(R.id.alertTitle);
+        Button button1 = alert1.getWindow().findViewById(android.R.id.button1);
+        Button button2 = alert1.getWindow().findViewById(android.R.id.button2);
+        // Setting font
+        //Typeface face=Typeface.createFromAsset(getAssets(),"fonts/lgb.ttf");
+        Typeface face = ResourcesCompat.getFont(getContext(), R.font.lgb);
+        textView.setTypeface(face);
+        textView.setTextColor(getResources().getColor(R.color.colorTheme));
+        button1.setTextColor(getResources().getColor(R.color.colorThemeFaded));
+
 
     }
 }
