@@ -536,6 +536,7 @@ public class DashboardFragment extends Fragment {
                         tvTitle.setVisibility(View.GONE);
                         imgIcon.setVisibility(View.GONE);
                         ddLayout.setVisibility(View.GONE);
+                        galleryButton.setVisibility(View.GONE);
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         // going back to register screen after registration
