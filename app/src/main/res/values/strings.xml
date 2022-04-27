@@ -831,4 +831,11 @@
         <item>Zimbabwe</item>
         <item>Åland Islands</item>
     </string-array>
+
+    <string-array name="activities" formatted="false" translatable="false">
+    <item>activity 1</item>
+    <item>activity 2</item>
+    <item>activity 3</item>
+    <item>activity 4</item>
+    </string-array>
 </resources>

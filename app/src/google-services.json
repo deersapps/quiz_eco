@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "731790234040",
+    "project_id": "activitygame-73efe",
+    "storage_bucket": "activitygame-73efe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731790234040:android:918e404c81616c14307f4d",
+        "android_client_info": {
+          "package_name": "com.jkdeers.activitygame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731790234040-hbcn81jkdpc7a50tgmdfi2klm4ptra55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA1FjF5IeMB4Jqw52ItI_zoiAtEcC0HDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "731790234040-hbcn81jkdpc7a50tgmdfi2klm4ptra55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

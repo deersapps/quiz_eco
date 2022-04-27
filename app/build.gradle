@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -60,4 +61,9 @@ dependencies {
    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
+    implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'com.google.firebase:firebase-database:20.0.1'
+    implementation 'com.firebase:firebase-client-android:2.5.0'
+    implementation 'com.google.firebase:firebase-auth:18.0.0'
+    implementation 'com.android.volley:volley:1.2.0'
 }
