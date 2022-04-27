@@ -85,11 +85,12 @@ public class DashboardFragment extends Fragment {
     private static final int CAMERA_CAPTURE_VIDEO_REQUEST_CODE = 200;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
-
+    int SELECT_PICTURE = 300;
     // directory name to store captured images and videos
     private static final String IMAGE_DIRECTORY_NAME = "AssetMapper";
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    String FilePathImage="";
 
     Button camButton ;
     Button submitButton ;
@@ -98,6 +99,7 @@ public class DashboardFragment extends Fragment {
     TextView tvTitle;
     ImageView imgIcon;
     TextInputLayout ddLayout;
+    Button galleryButton;
     private Uri fileUri; // file url to store image/video
 
     private ImageView imgPreviewassets;
@@ -105,6 +107,7 @@ public class DashboardFragment extends Fragment {
     String imageUrl = "No image selected";
     // FOR REAL IMAGE FROM ASSET MAPPER CODE//
     private ImageView imageView;
+    TextView imagepath;
 
     // creating constant keys for shared preferences.
     public static final String SHARED_PREFS = "shared_prefs";
@@ -121,10 +124,11 @@ public class DashboardFragment extends Fragment {
 
         final TextView textView = binding.textDashboard;
         imgPreviewassets = binding.imageCapture;
-        final TextView imagepath = binding.textDashboard;
+        imagepath = binding.textDashboard;
         tvTitle = binding.addActivityTitle;
         imgIcon = binding.imageIcon;
         ddLayout = binding.activityDropDown;
+        galleryButton = binding.btnAddPhotoGallery;
         String[] countries = getResources().getStringArray(R.array.activities);
         ArrayAdapter arrayAdapterActivity = new ArrayAdapter(getContext(), R.layout.dropdown_item, R.id.textView, countries);
         // get reference to the autocomplete text view
@@ -141,6 +145,18 @@ public class DashboardFragment extends Fragment {
         camButton = binding.btnAddPhoto;
         submitButton = binding.btnAddActivity;
         consent = binding.addActivityCheckBox;
+
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageChooser();
+                String FilePathImage="";
+                FilePathImage=fileUri.toString();
+
+                imagepath.setText(FilePathImage);
+            }
+        });
+        
         camButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -149,7 +165,7 @@ public class DashboardFragment extends Fragment {
 
                 // capture picture
                 captureImage();
-                String FilePathImage="";
+                FilePathImage="";
                 FilePathImage=fileUri.toString();
 
                 imagepath.setText(FilePathImage);
@@ -175,6 +191,26 @@ public class DashboardFragment extends Fragment {
         });
         return root;
     }
+
+    private void imageChooser() {
+        // create an instance of the
+        // intent of the type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+        i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        i.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        // start the image capture Intent.
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+
+        StrictMode.setVmPolicy(builder.build());
+
+        // pass the constant to compare it
+        // with the returned requestCode
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+
     private void captureImage() {
 
 
@@ -321,6 +357,20 @@ public class DashboardFragment extends Fragment {
                         "Sorry! Failed to record video", Toast.LENGTH_SHORT)
                         .show();
             }
+        } else if (requestCode == SELECT_PICTURE) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (resultCode ==getActivity().RESULT_OK) {
+                // Get the url of the image from data
+                fileUri = data.getData();
+                if (null != fileUri) {
+                    // update the preview image in the layout
+                    imgPreviewassets.setImageURI(fileUri);
+
+                    imgPreviewassets.setVisibility(View.VISIBLE);
+                }
+            }
         }
     }
 
@@ -375,6 +425,7 @@ public class DashboardFragment extends Fragment {
 
         if (fileUri != null){
             final StorageReference filePath = FirebaseStorage.getInstance().getReference("Posts").child(System.currentTimeMillis() + "." + getFileExtension(fileUri));
+            //FirebaseAuth.instance.signInAnonymously();
 
             Bitmap bmp = null;
             try {
@@ -422,7 +473,7 @@ public class DashboardFragment extends Fragment {
         try {
             // hide video preview
 
-            TextView imagepath=binding.textDashboard;
+            imagepath=binding.textDashboard;
             imgPreviewassets.setVisibility(View.VISIBLE);
 
             // bimatp factory

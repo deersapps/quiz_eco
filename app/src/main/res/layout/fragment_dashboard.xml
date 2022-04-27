@@ -115,6 +115,16 @@
 
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:textAllCaps="false" />
+            <Button
+                android:id="@+id/btnAddPhotoGallery"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/button_background_dark"
+                android:elevation="4dp"
+                android:text="@string/add_photo_gallery"
+
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textAllCaps="false" />
 
             <ImageView
                 android:layout_width="@dimen/_200sdp"

@@ -31,7 +31,8 @@
     <string name="web_address">Web: www.jkdeers.com Email: dirjkers@gmail.com</string>
 
     <string name="sign_up"><u>Sign up</u></string>
-    <string name="add_photo"><u>Add Photo</u></string>
+    <string name="add_photo"><u>Add Camera Image</u></string>
+    <string name="add_photo_gallery"><u>Add Gallery Image</u></string>
     <string name="sign_up_non_underline">Sign up</string>
     <string name="log_in"><u>Log In</u></string>
     <string name="log_in_non_underline">Log In</string>
