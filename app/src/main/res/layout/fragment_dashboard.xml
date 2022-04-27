@@ -77,6 +77,7 @@
                 android:backgroundTint="@color/colorWhite"
                 android:importantForAutofill="no"
                 android:paddingBottom="@dimen/_15sdp"
+                android:id="@+id/activityDropDown"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite">
 

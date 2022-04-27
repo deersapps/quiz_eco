@@ -56,6 +56,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -95,6 +96,8 @@ public class DashboardFragment extends Fragment {
     CheckBox consent ;
     AutoCompleteTextView autoCompleteTextView ;
     TextView tvTitle;
+    ImageView imgIcon;
+    TextInputLayout ddLayout;
     private Uri fileUri; // file url to store image/video
 
     private ImageView imgPreviewassets;
@@ -120,6 +123,8 @@ public class DashboardFragment extends Fragment {
         imgPreviewassets = binding.imageCapture;
         final TextView imagepath = binding.textDashboard;
         tvTitle = binding.addActivityTitle;
+        imgIcon = binding.imageIcon;
+        ddLayout = binding.activityDropDown;
         String[] countries = getResources().getStringArray(R.array.activities);
         ArrayAdapter arrayAdapterActivity = new ArrayAdapter(getContext(), R.layout.dropdown_item, R.id.textView, countries);
         // get reference to the autocomplete text view
@@ -478,6 +483,8 @@ public class DashboardFragment extends Fragment {
                         submitButton.setVisibility(View.GONE);
                         consent.setVisibility(View.GONE);
                         tvTitle.setVisibility(View.GONE);
+                        imgIcon.setVisibility(View.GONE);
+                        ddLayout.setVisibility(View.GONE);
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         // going back to register screen after registration
