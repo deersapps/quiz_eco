@@ -17,6 +17,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -42,6 +43,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -62,6 +64,8 @@ import com.google.firebase.storage.StorageTask;
 import com.jkdeers.activitygame.MainActivity;
 import com.jkdeers.activitygame.R;
 import com.jkdeers.activitygame.databinding.FragmentDashboardBinding;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -86,7 +90,11 @@ public class DashboardFragment extends Fragment {
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
-
+    Button camButton ;
+    Button submitButton ;
+    CheckBox consent ;
+    AutoCompleteTextView autoCompleteTextView ;
+    TextView tvTitle;
     private Uri fileUri; // file url to store image/video
 
     private ImageView imgPreviewassets;
@@ -111,10 +119,11 @@ public class DashboardFragment extends Fragment {
         final TextView textView = binding.textDashboard;
         imgPreviewassets = binding.imageCapture;
         final TextView imagepath = binding.textDashboard;
+        tvTitle = binding.addActivityTitle;
         String[] countries = getResources().getStringArray(R.array.activities);
         ArrayAdapter arrayAdapterActivity = new ArrayAdapter(getContext(), R.layout.dropdown_item, R.id.textView, countries);
         // get reference to the autocomplete text view
-        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView)
+        autoCompleteTextView = (AutoCompleteTextView)
                 binding.activtyAutoCompleteView;
         //getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         autoCompleteTextView.setAdapter(arrayAdapterActivity);
@@ -124,9 +133,9 @@ public class DashboardFragment extends Fragment {
                 textView.setText(s);
             }
         });
-        Button camButton = binding.btnAddPhoto;
-        Button submitButton = binding.btnAddActivity;
-        CheckBox consent = binding.addActivityCheckBox;
+        camButton = binding.btnAddPhoto;
+        submitButton = binding.btnAddActivity;
+        consent = binding.addActivityCheckBox;
         camButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -442,7 +451,7 @@ public class DashboardFragment extends Fragment {
     }
     // adding the point info into goole docs
     private void   addPointForm() {
-        final ProgressDialog loading = ProgressDialog.show(getContext(),"Adding this point ","Please wait");
+        final ProgressDialog loading = ProgressDialog.show(getContext(),"Saving the earth bit by bit ","Please wait");
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         String lat = "34";
         String lon = "77";
@@ -461,12 +470,26 @@ public class DashboardFragment extends Fragment {
                     public void onResponse(String response) {
                         //after email sent and data added to sheets we dismiss the progress screen
                         loading.dismiss();
+                        LottieAnimationView addedIt = binding.addedLottie;
+                        addedIt.setVisibility(View.VISIBLE);
+                        imgPreviewassets.setVisibility(View.GONE);
+                        camButton.setVisibility(View.GONE);
+                        autoCompleteTextView.setVisibility(View.GONE);
+                        submitButton.setVisibility(View.GONE);
+                        consent.setVisibility(View.GONE);
+                        tvTitle.setVisibility(View.GONE);
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         // going back to register screen after registration
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity(intent);
+                            }
+                        }, 4000);
+
 
                     }
                 },

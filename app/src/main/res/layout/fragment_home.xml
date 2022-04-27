@@ -452,6 +452,18 @@ android:layout_height="match_parent">
             android:orientation="vertical"
             android:background="@drawable/background_gradient_grey"
             android:padding="@dimen/_10sdp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:text="@string/your_top_three"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:textColor="@color/colorTheme"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold"/>
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/chart1"
@@ -713,4 +725,6 @@ android:layout_height="match_parent">
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
+
+
 </ScrollView>
