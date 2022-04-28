@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
@@ -84,13 +86,15 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_FINE_LOCATION);
         int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
+        int result2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
+        int result3 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
 
-        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
+        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED && result2 == PackageManager.PERMISSION_GRANTED && result3 == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermission() {
 
-        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, CAMERA}, PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, CAMERA, READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
 
     }
 
@@ -103,23 +107,26 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
 
                     boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean cameraAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean readAccepted = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeAccepted = grantResults[3] == PackageManager.PERMISSION_GRANTED;
 
-                    if (locationAccepted && cameraAccepted)
+                    if (locationAccepted && cameraAccepted && readAccepted && writeAccepted)
                         //Snackbar.make( "Permission Granted, Now you can access location data and camera.", Snackbar.LENGTH_LONG).show();
-                        Toast.makeText(getApplicationContext(), "Permission Granted, Now you can access location data and camera.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Permission Granted, Now you can access.", Toast.LENGTH_SHORT).show();
                     else {
 
                         //Snackbar.make(view, "Permission Denied, You cannot access location data and camera.", Snackbar.LENGTH_LONG).show();
-                        Toast.makeText(getApplicationContext(), "Permission Denied, You cannot access location data and camera.", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(getApplicationContext(), "Permission Denied, You cannot access.", Toast.LENGTH_SHORT).show();
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
-                                showMessageOKCancel("You need to allow access to both the permissions",
+                            if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION) || shouldShowRequestPermissionRationale(CAMERA)
+                            ||shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE)||shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)) {
+                                showMessageOKCancel("You need to allow access to all the permissions",
                                         new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                    requestPermissions(new String[]{ACCESS_FINE_LOCATION, CAMERA},
+                                                    requestPermissions(new String[]{ACCESS_FINE_LOCATION, CAMERA, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE},
                                                             PERMISSION_REQUEST_CODE);
                                                 }
                                             }
