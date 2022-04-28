@@ -545,9 +545,9 @@ public class DashboardFragment extends Fragment {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                startActivity(intent);
+                                getActivity().startActivity(intent);
                             }
-                        }, 4000);
+                        }, 1000);
 
 
                     }
