@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ForgetPasswordActivity" android:theme="@style/AppTheme"></activity>
         <activity android:name=".VerificationActivity" android:theme="@style/AppTheme" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".SignUpActivity"  />
         <activity android:name=".Signin" />
         <activity
             android:name=".StartActivity"
