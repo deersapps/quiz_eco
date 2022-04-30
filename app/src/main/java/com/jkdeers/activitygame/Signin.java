@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -114,13 +115,13 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                         //Snackbar.make( "Permission Granted, Now you can access location data and camera.", Snackbar.LENGTH_LONG).show();
                         Toast.makeText(getApplicationContext(), "Permission Granted, Now you can access.", Toast.LENGTH_SHORT).show();
                     else {
-
-                        //Snackbar.make(view, "Permission Denied, You cannot access location data and camera.", Snackbar.LENGTH_LONG).show();
-                      Toast.makeText(getApplicationContext(), "Permission Denied, You cannot access.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Permission Denied, You cannot access.", Toast.LENGTH_SHORT).show();
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION) || shouldShowRequestPermissionRationale(CAMERA)
-                            ||shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE)||shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)) {
+                            if ((shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION) || shouldShowRequestPermissionRationale(CAMERA)
+                                    ||shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE)||shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))
+                            || ((grantResults[0] != PackageManager.PERMISSION_GRANTED) || (grantResults[1] != PackageManager.PERMISSION_GRANTED) || (grantResults[2] != PackageManager.PERMISSION_GRANTED) || (grantResults[3] != PackageManager.PERMISSION_GRANTED)))
+                            {
                                 showMessageOKCancel("You need to allow access to all the permissions",
                                         new DialogInterface.OnClickListener() {
                                             @Override
@@ -128,12 +129,17 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                                     requestPermissions(new String[]{ACCESS_FINE_LOCATION, CAMERA, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE},
                                                             PERMISSION_REQUEST_CODE);
+                                                } else {
+                                                   // requestPermission();
                                                 }
                                             }
                                         });
                                 return;
                             }
                         }
+                        //Snackbar.make(view, "Permission Denied, You cannot access location data and camera.", Snackbar.LENGTH_LONG).show();
+
+
 
                     }
                 }
@@ -160,6 +166,7 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
         textView.setTypeface(face);
         textView.setTextColor(getResources().getColor(R.color.purple_500));
         button1.setTextColor(Color.RED);
+        alert1.setCanceledOnTouchOutside(false);
     }
 
 
