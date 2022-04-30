@@ -50,6 +50,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.Continuation;
@@ -66,6 +67,8 @@ import com.jkdeers.activitygame.MainActivity;
 import com.jkdeers.activitygame.R;
 import com.jkdeers.activitygame.databinding.FragmentDashboardBinding;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
@@ -519,11 +522,56 @@ public class DashboardFragment extends Fragment {
         String remarksText = "remarks";
 
 
-        // StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbxL51N6TS4GAOMO71IJX8Hp2mJ8Pcvw6EkAF1QStRblNfo1B-kc6NHNebhVPblPSL7p/exec",
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbxYC8JSfzZqxlq9PgbeJdv48FeFoY2cXWF-whQZzorKjWINGoEQNKzvhF8epLkq1SAK/exec",
-                new Response.Listener<String>() {
+//        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+//        JSONObject object = new JSONObject();
+//        try {
+//            //input your API parameters
+//            object.put("parameter","value");
+//            object.put("parameter","value");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        // Enter the correct url for your api service site
+//        String url = getResources().getString(R.string.url);
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "https://orbisliferesearch.com/api/ActivityAPI/CreateActivity", object,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        resultTextView.setText("String Response : "+ response.toString());
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                resultTextView.setText("Error getting response");
+//            }
+//        });
+//        requestQueue.add(jsonObjectRequest);
+
+
+        JSONObject object = new JSONObject();
+        try {
+            //input your API parameters
+            object.put("Title", "Swerwer sasdfb");
+            object.put("Description", "sdfe2r3sa asfda ");
+            object.put("Userid", 13);
+            object.put("DistrictId", 1);
+            object.put("ZoneId", 1);
+            object.put("SchoolId", 1);
+            object.put("ClassId", 1);
+            object.put("TypeActivityId", 1);
+            if (photourl!=null) {
+                object.put("Attachment",photourl);
+            } else {
+                object.put("photourl","no image taken for this point");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+       // StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbxL51N6TS4GAOMO71IJX8Hp2mJ8Pcvw6EkAF1QStRblNfo1B-kc6NHNebhVPblPSL7p/exec",
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "https://orbisliferesearch.com/api/ActivityAPI/CreateActivity", object,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         //after email sent and data added to sheets we dismiss the progress screen
                         loading.dismiss();
                         LottieAnimationView addedIt = binding.addedLottie;
@@ -538,7 +586,7 @@ public class DashboardFragment extends Fragment {
                         ddLayout.setVisibility(View.GONE);
                         galleryButton.setVisibility(View.GONE);
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         // going back to register screen after registration
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -555,6 +603,7 @@ public class DashboardFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.i("************************* \n*****\n****", String.valueOf(error));
 
                     }
                 }
@@ -564,39 +613,19 @@ public class DashboardFragment extends Fragment {
                 Map<String, String> parmas = new HashMap<>();
 
                 //here we pass params
-                parmas.put("action","addItem");
-                parmas.put("lat",lat);
-                parmas.put("lon",lon);
-                parmas.put("city","city");
-                parmas.put("name","name");
-                parmas.put("alt","alt");
-                parmas.put("dist","dist");
-                parmas.put("vil","vil");
-                parmas.put("landmark","landmark");
-                parmas.put("topo","topo");
-                parmas.put("ownership","ownership");
-                parmas.put("area","area");
-                parmas.put("wetlandtype","wetlandtype");
-                // parmas.put("typ",typ);
-                parmas.put("depth","depth");
-                parmas.put("inlet","inlet");
-                parmas.put("outlet","outlet");
-                parmas.put("qual","qual");
-                parmas.put("bio","bio");
-                parmas.put("biodiversityfill","biodiversityEditTextBoxString");
-                parmas.put("ecoservice","ecoservice");
-                parmas.put("importance","importance");
-                parmas.put("rightsandpriveleges","rightsandpriveleges");
-                parmas.put("threats","threats");
-                parmas.put("wetlandproducts","wetlandproducts");
-                parmas.put("culturalservice","culturalservice");
-                parmas.put("remarksanyfill",remarksText);
-                parmas.put("addedby","asim");
-                if (photourl!=null) {
-                    parmas.put("photourl",photourl);
-                } else {
-                    parmas.put("photourl","no image taken for this point");
-                }
+//                parmas.put("Title", "Swerwer sasdfb");
+//                parmas.put("Description", "sdfe2r3sa asfda ");
+//                parmas.put("Userid", String.valueOf(13));
+//                parmas.put("DistrictId", String.valueOf(1));
+//                parmas.put("ZoneId", String.valueOf(1));
+//                parmas.put("SchoolId", String.valueOf(1));
+//                parmas.put("ClassId", String.valueOf(1));
+//                parmas.put("TypeActivityId", String.valueOf(1));
+//                if (photourl!=null) {
+//                    parmas.put("Attachment",photourl);
+//                } else {
+//                    parmas.put("photourl","no image taken for this point");
+//                }
                 return parmas;
             }
         };
@@ -604,11 +633,11 @@ public class DashboardFragment extends Fragment {
         int socketTimeOut = 50000;// u can change this .. here it is 50 seconds
 
         RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        stringRequest.setRetryPolicy(retryPolicy);
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
-        queue.add(stringRequest);
+        queue.add(jsonObjectRequest);
 
     }
     private void showPopup( String message) {
