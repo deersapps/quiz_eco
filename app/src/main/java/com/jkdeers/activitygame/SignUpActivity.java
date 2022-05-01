@@ -43,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private String android_id;
     EditText fn, ln, zn, em, ph, un, pas;
     AutoCompleteTextView dis,school, cl;
-    ArrayAdapter arrayAdapterDistrict;
+    ArrayAdapter arrayAdapterDistrict,arrayAdapterSchool;
     AutoCompleteTextView autoCompleteTextViewDistricts;
     String fns, lns, diss, zns, schools, cls, ems, phs, uns, pass;
     Integer districtId;
@@ -51,6 +51,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public static final String SHARED_PREFS = "shared_prefs";
     String[]
     districtsListStringArray;
+    private RequestQueue mQueue;
 
 
     @Override
@@ -62,8 +63,95 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 Settings.Secure.ANDROID_ID);
         Log.d("*************************************************************************", android_id);
         // get reference to the string array that we just created
+        mQueue = Volley.newRequestQueue(this);
+        mQueue.add(HTTPReq.getRequest( "https://orbisliferesearch.com/api/PrerequisiteAPIs/GetDistricts", new VolleyCallback() {
+            @Override
+            public void onSuccess(String response) throws JSONException {
 
-        getDistrictsFromAPI();
+                //JSONArray jsonresultsarray = new JSONArray(response);
+                if (!response.equals("[]")) {
+                    //setting session key Name
+                    Log.v("response:", response);
+                    JSONArray jsonArray = new JSONArray(response);
+                    List<String> listDistricts = new ArrayList<String>();
+                    List<String> listDistrictIds = new ArrayList<String>();
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        listDistricts.add(jsonArray.getJSONObject(i).getString("name"));
+                        listDistrictIds.add(jsonArray.getJSONObject(i).getString("id"));
+                    }
+                    districtsListStringArray = listDistricts.toArray(new String[listDistricts.size()]);
+                }
+                arrayAdapterDistrict = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, districtsListStringArray);
+                // get reference to the autocomplete text view
+                autoCompleteTextViewDistricts = (AutoCompleteTextView)
+                        findViewById(R.id.autoCompleteTextView);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                autoCompleteTextViewDistricts.setAdapter(arrayAdapterDistrict);
+
+
+                autoCompleteTextViewDistricts.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                        getDistrictsFromAPI();
+                        String selection = (String) parent.getItemAtPosition(position);
+                        int pos = -1;
+
+                        for (int i = 0; i < districtsListStringArray.length; i++) {
+                            if (districtsListStringArray[i].equals(selection)) {
+
+                                pos = i+1;
+                                mQueue.add(HTTPReq.getRequest( "https://orbisliferesearch.com/api/PrerequisiteAPIs/GetDistricts", new VolleyCallback() {
+                                    @Override
+                                    public void onSuccess(String response) throws JSONException {
+
+                                        //JSONArray jsonresultsarray = new JSONArray(response);
+                                        if (!response.equals("[]")) {
+                                            //setting session key Name
+                                            Log.v("response:", response);
+                                            JSONArray jsonArray = new JSONArray(response);
+                                            List<String> listDistricts = new ArrayList<String>();
+                                            List<String> listDistrictIds = new ArrayList<String>();
+                                            for(int i=0;i<jsonArray.length();i++)
+                                            {
+                                                listDistricts.add(jsonArray.getJSONObject(i).getString("name"));
+                                                listDistrictIds.add(jsonArray.getJSONObject(i).getString("id"));
+                                            }
+                                            districtsListStringArray = listDistricts.toArray(new String[listDistricts.size()]);
+                                        }
+
+                                        arrayAdapterSchool = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, districtsListStringArray);
+                                        // get reference to the autocomplete text view
+                                        AutoCompleteTextView autoCompleteTextViewSchool = (AutoCompleteTextView)
+                                                findViewById(R.id.autoCompleteTextViewSchool);
+                                        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                                        autoCompleteTextViewSchool.setAdapter(arrayAdapterSchool);
+
+
+                                    }
+
+                                    @Override
+                                    public void onError(String result) {
+                                        System.out.println(result);
+                                    }
+                                }));
+                                break;
+                            }
+                        }
+                        Log.i("Position " , String.valueOf(pos)); //check it now in Logcat
+                    }
+                });
+            }
+
+            @Override
+            public void onError(String result) {
+                System.out.println(result);
+            }
+        }));
+
+        Log.i("districtsListStringArray", String.valueOf(districtsListStringArray));
+        //getDistrictsFromAPI();
 
 
 //        // create an array adapter and pass the required parameter
@@ -76,13 +164,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 //        autoCompleteTextViewDistricts.setAdapter(arrayAdapterDistrict);
 //
 //
-//        ArrayAdapter arrayAdapterSchool = new ArrayAdapter(this, R.layout.dropdown_item, R.id.textView, districtsListStringArray);
+//        String[] asim = {"asim","jan"};
+//        ArrayAdapter arrayAdapterSchool = new ArrayAdapter(this, R.layout.dropdown_item, R.id.textView, asim);
 //        // get reference to the autocomplete text view
 //        AutoCompleteTextView autoCompleteTextViewSchool = (AutoCompleteTextView)
 //                findViewById(R.id.autoCompleteTextViewSchool);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        autoCompleteTextViewSchool.setAdapter(arrayAdapterSchool);
-//
+
 //
 //        ArrayAdapter arrayAdapterStandard = new ArrayAdapter(this, R.layout.dropdown_item, R.id.textView, districtsListStringArray);
 //        // get reference to the autocomplete text view
@@ -109,7 +198,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         un = findViewById(R.id.username_tb);
         pas = findViewById(R.id.password_tb);
 
-//        autoCompleteTextViewDistricts.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//        autoCompleteTextViewSchool.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 //
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
@@ -127,18 +216,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 //            }
 //        });
 //
-//        autoCompleteTextViewDistricts.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
+
 
     }
 
