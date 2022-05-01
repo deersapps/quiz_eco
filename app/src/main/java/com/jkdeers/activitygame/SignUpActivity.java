@@ -63,33 +63,33 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Log.d("*************************************************************************", android_id);
         // get reference to the string array that we just created
 
+        getDistrictsFromAPI();
 
 
-
-        // create an array adapter and pass the required parameter
-        // in our case pass the context, drop down layout , and array.
-        arrayAdapterDistrict = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, districtsListStringArray);
-        // get reference to the autocomplete text view
-        autoCompleteTextViewDistricts = (AutoCompleteTextView)
-                findViewById(R.id.autoCompleteTextView);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        autoCompleteTextViewDistricts.setAdapter(arrayAdapterDistrict);
-
-
-        ArrayAdapter arrayAdapterSchool = new ArrayAdapter(this, R.layout.dropdown_item, R.id.textView, districtsListStringArray);
-        // get reference to the autocomplete text view
-        AutoCompleteTextView autoCompleteTextViewSchool = (AutoCompleteTextView)
-                findViewById(R.id.autoCompleteTextViewSchool);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        autoCompleteTextViewSchool.setAdapter(arrayAdapterSchool);
-
-
-        ArrayAdapter arrayAdapterStandard = new ArrayAdapter(this, R.layout.dropdown_item, R.id.textView, districtsListStringArray);
-        // get reference to the autocomplete text view
-        AutoCompleteTextView autoCompleteTextViewStandard = (AutoCompleteTextView)
-                findViewById(R.id.autoCompleteTextViewStandard);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        autoCompleteTextViewStandard.setAdapter(arrayAdapterStandard);
+//        // create an array adapter and pass the required parameter
+//        // in our case pass the context, drop down layout , and array.
+//        arrayAdapterDistrict = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, districtsListStringArray);
+//        // get reference to the autocomplete text view
+//        autoCompleteTextViewDistricts = (AutoCompleteTextView)
+//                findViewById(R.id.autoCompleteTextView);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        autoCompleteTextViewDistricts.setAdapter(arrayAdapterDistrict);
+//
+//
+//        ArrayAdapter arrayAdapterSchool = new ArrayAdapter(this, R.layout.dropdown_item, R.id.textView, districtsListStringArray);
+//        // get reference to the autocomplete text view
+//        AutoCompleteTextView autoCompleteTextViewSchool = (AutoCompleteTextView)
+//                findViewById(R.id.autoCompleteTextViewSchool);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        autoCompleteTextViewSchool.setAdapter(arrayAdapterSchool);
+//
+//
+//        ArrayAdapter arrayAdapterStandard = new ArrayAdapter(this, R.layout.dropdown_item, R.id.textView, districtsListStringArray);
+//        // get reference to the autocomplete text view
+//        AutoCompleteTextView autoCompleteTextViewStandard = (AutoCompleteTextView)
+//                findViewById(R.id.autoCompleteTextViewStandard);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        autoCompleteTextViewStandard.setAdapter(arrayAdapterStandard);
 
 
         btnSignUp = findViewById(R.id.btnSignUp);
@@ -109,23 +109,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         un = findViewById(R.id.username_tb);
         pas = findViewById(R.id.password_tb);
 
-        autoCompleteTextViewDistricts.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                getDistrictsFromAPI();
-                String selection = (String) parent.getItemAtPosition(position);
-                int pos = -1;
-
-                for (int i = 0; i < districtsListStringArray.length; i++) {
-                    if (districtsListStringArray[i].equals(selection)) {
-                        pos = i+1;
-                        break;
-                    }
-                }
-                Log.i("Position " , String.valueOf(pos)); //check it now in Logcat
-            }
-        });
+//        autoCompleteTextViewDistricts.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+//                getDistrictsFromAPI();
+//                String selection = (String) parent.getItemAtPosition(position);
+//                int pos = -1;
+//
+//                for (int i = 0; i < districtsListStringArray.length; i++) {
+//                    if (districtsListStringArray[i].equals(selection)) {
+//                        pos = i+1;
+//                        break;
+//                    }
+//                }
+//                Log.i("Position " , String.valueOf(pos)); //check it now in Logcat
+//            }
+//        });
 //
 //        autoCompleteTextViewDistricts.addTextChangedListener(new TextWatcher() {
 //            @Override
@@ -254,6 +254,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 }
                                 districtsListStringArray = listDistricts.toArray(new String[listDistricts.size()]);
                             }
+                            arrayAdapterDistrict = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, districtsListStringArray);
+                            // get reference to the autocomplete text view
+                            autoCompleteTextViewDistricts = (AutoCompleteTextView)
+                                    findViewById(R.id.autoCompleteTextView);
+                            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                            autoCompleteTextViewDistricts.setAdapter(arrayAdapterDistrict);
+
 
 
 
