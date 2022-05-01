@@ -51,6 +51,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public static final String SHARED_PREFS = "shared_prefs";
     String[]
     districtsListStringArray;
+    String[] schoolListStringArray;
     private RequestQueue mQueue;
 
 
@@ -102,7 +103,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             if (districtsListStringArray[i].equals(selection)) {
 
                                 pos = i+1;
-                                mQueue.add(HTTPReq.getRequest( "https://orbisliferesearch.com/api/PrerequisiteAPIs/GetDistricts", new VolleyCallback() {
+                                mQueue.add(HTTPReq.getRequest( "https://orbisliferesearch.com/api/PrerequisiteAPIs/Getschools?districtid=1&zoneid=1", new VolleyCallback() {
                                     @Override
                                     public void onSuccess(String response) throws JSONException {
 
@@ -118,10 +119,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                                 listDistricts.add(jsonArray.getJSONObject(i).getString("name"));
                                                 listDistrictIds.add(jsonArray.getJSONObject(i).getString("id"));
                                             }
-                                            districtsListStringArray = listDistricts.toArray(new String[listDistricts.size()]);
+                                            schoolListStringArray = listDistricts.toArray(new String[listDistricts.size()]);
                                         }
 
-                                        arrayAdapterSchool = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, districtsListStringArray);
+                                        arrayAdapterSchool = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, schoolListStringArray);
                                         // get reference to the autocomplete text view
                                         AutoCompleteTextView autoCompleteTextViewSchool = (AutoCompleteTextView)
                                                 findViewById(R.id.autoCompleteTextViewSchool);
