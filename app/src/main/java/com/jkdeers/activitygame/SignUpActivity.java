@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -26,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +55,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     districtsListStringArray;
     String[] schoolListStringArray;
     private RequestQueue mQueue;
+    TextInputLayout otherSchoolNameTextInputLayout;
+    String OtherSchoolName;
+    EditText otherEditTextBoxSchoolView;
 
 
     @Override
@@ -103,7 +108,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             if (districtsListStringArray[i].equals(selection)) {
 
                                 pos = i+1;
-                                mQueue.add(HTTPReq.getRequest( "https://orbisliferesearch.com/api/PrerequisiteAPIs/Getschools?districtid=1&zoneid=1", new VolleyCallback() {
+                                int dId = 1;
+                                int zId = 1;
+                                String baseUrl = "https://orbisliferesearch.com/api/PrerequisiteAPIs/Getschools?districtid=";
+                                baseUrl = baseUrl+dId;
+                                baseUrl = baseUrl +"&zoneid="+zId;
+                                mQueue.add(HTTPReq.getRequest( baseUrl, new VolleyCallback() {
                                     @Override
                                     public void onSuccess(String response) throws JSONException {
 
@@ -119,6 +129,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                                 listDistricts.add(jsonArray.getJSONObject(i).getString("name"));
                                                 listDistrictIds.add(jsonArray.getJSONObject(i).getString("id"));
                                             }
+                                            listDistricts.add("Other");
                                             schoolListStringArray = listDistricts.toArray(new String[listDistricts.size()]);
                                         }
 
@@ -128,6 +139,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                                 findViewById(R.id.autoCompleteTextViewSchool);
                                         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                                         autoCompleteTextViewSchool.setAdapter(arrayAdapterSchool);
+
+                                        autoCompleteTextViewSchool.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+
+                                                if (autoCompleteTextViewSchool.getText().toString().trim().equals("Other")) {
+
+                                                    otherSchoolNameTextInputLayout = findViewById(R.id.otherEditTextSchool);
+                                                    otherSchoolNameTextInputLayout.setVisibility(View.VISIBLE);
+                                                    otherEditTextBoxSchoolView = findViewById(R.id.otherEditTextBoxSchool);
+
+                                                    OtherSchoolName = otherEditTextBoxSchoolView.getText().toString().trim();
+                                                }
+                                            }
+                                        });
+
+
 
 
                                     }
@@ -198,27 +227,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         ph = findViewById(R.id.phone_tb);
         un = findViewById(R.id.username_tb);
         pas = findViewById(R.id.password_tb);
-
-//        autoCompleteTextViewSchool.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-//                getDistrictsFromAPI();
-//                String selection = (String) parent.getItemAtPosition(position);
-//                int pos = -1;
-//
-//                for (int i = 0; i < districtsListStringArray.length; i++) {
-//                    if (districtsListStringArray[i].equals(selection)) {
-//                        pos = i+1;
-//                        break;
-//                    }
-//                }
-//                Log.i("Position " , String.valueOf(pos)); //check it now in Logcat
-//            }
-//        });
-//
-
-
     }
 
     @SuppressLint("NonConstantResourceId")
