@@ -2,21 +2,25 @@ package com.jkdeers.activitygame;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -47,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     AutoCompleteTextView dis,school, cl;
     ArrayAdapter arrayAdapterDistrict,arrayAdapterSchool;
     AutoCompleteTextView autoCompleteTextViewDistricts;
-    String fns, lns, diss, zns, schools, cls, sect, ems, phs, uns, pass;
+    String fns, lns, diss, zns, schools, cls, sect, ems, phs, uns, pass, OtherSchoolName;
     Integer districtId;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     public static final String SHARED_PREFS = "shared_prefs";
@@ -56,8 +60,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     String[] schoolListStringArray;
     private RequestQueue mQueue;
     TextInputLayout otherSchoolNameTextInputLayout;
-    String OtherSchoolName;
     EditText otherEditTextBoxSchoolView;
+    boolean isAllFieldsChecked = false;
 
 
     @Override
@@ -204,6 +208,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                                     otherSchoolNameTextInputLayout.setVisibility(View.VISIBLE);
                                                     otherEditTextBoxSchoolView = findViewById(R.id.otherEditTextBoxSchool);
 
+                                                    OtherSchoolName = otherEditTextBoxSchoolView.getText().toString().trim();
+
 
                                                 }
                                             }
@@ -253,13 +259,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+
     private void registerUser() {
         // final ProgressDialog loading = ProgressDialog.show(this,"Registering you now","Please wait");
         fns = fn.getText().toString().trim();
         lns = ln.getText().toString().trim();
         diss = dis.getText().toString().trim();
         zns = zn.getText().toString().trim();
-        schools = school.getText().toString().trim();
+        if (school.getText().equals("Other")) {
+            OtherSchoolName = otherEditTextBoxSchoolView.getText().toString().trim();
+            schools = OtherSchoolName;
+        } else  {
+            schools = school.getText().toString().trim();
+        }
         cls = cl.getText().toString().trim();
         sect = sec.getText().toString().trim();
         ems = em.getText().toString().trim();
@@ -268,7 +280,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         pass = pas.getText().toString().trim();
         int min = 0;
         int max = 9999;
+
+        isAllFieldsChecked = CheckAllFields();
+        if (isAllFieldsChecked) {
+            Toast.makeText(getApplicationContext(), "All validations passed", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Please check errors", Toast.LENGTH_SHORT).show();
+        }
         JSONObject object = new JSONObject();
+
+
         try {
                     object.put("FirstName","Sheikh Shuaib");
                     object.put("LastName", "Ashraf");
@@ -431,5 +452,57 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         stringRequest.setRetryPolicy(retryPolicy);
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(stringRequest);
+    }
+
+    private boolean CheckAllFields() {
+        if (fn.length() == 0) {
+            fn.setError("Name is required");
+            return false;
+        }
+
+        if (ln.length() == 0) {
+            ln.setError("Last Name is required");
+            return false;
+        }
+
+        if (dis.getText().toString().trim().equals("District") || diss.length() == 0) {
+            dis.setError("Please select district");
+            return false;
+        }
+
+        if (school.getText().toString().trim().equals("Other")) {
+            if (otherEditTextBoxSchoolView.getVisibility() == View.VISIBLE)
+            if (OtherSchoolName.length() == 0) {
+                otherEditTextBoxSchoolView.setError("Please fill in the school name");
+            }
+        }
+        if (school.getText().toString().trim().equals("School") || schools.length() == 0) {
+            school.setError("Please select School");
+            return false;
+        }
+        if (cl.getText().toString().trim().equals("Class") || cls.length() == 0) {
+            cl.setError("Please select School");
+            return false;
+        }
+        if (sec.getText().toString().trim().equals("Section") || sect.length() == 0 ) {
+            sec.setError("Please select section");
+            return false;
+        } else if (pas.length() < 5) {
+            pas.setError("Username has to be atleast one capital, one alphanumeric and some digits");
+            return false;
+        } else if (ph.length() < 10 || ph.length() > 10) {
+            ph.setError("Invalid Phone number");
+            return false;
+        }
+        else if (!em.getText().toString().trim().matches(emailPattern)) {
+            em.setError("Please enter valid email");
+            return false;
+        } else if (un.length()<5) {
+            un.setError("Username too short");
+            return false;
+        }
+
+        // after all validation return true.
+        return true;
     }
 }
