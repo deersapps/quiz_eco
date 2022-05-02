@@ -103,7 +103,8 @@
                 android:buttonTint="@color/colorWhite"
                 android:id="@+id/addActivityCheckBox"
                 android:text="@string/consent_user_add"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"/>
 
             <Button
                 android:id="@+id/btnAddPhoto"

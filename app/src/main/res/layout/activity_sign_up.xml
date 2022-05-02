@@ -212,6 +212,32 @@
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                app:hintTextColor="@color/colorWhite">
+
+                <!-- Inside text input layout add
+                      an auto complete text view
+                        and make its input type to none-->
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:backgroundTint="@color/colorWhite"
+                    android:hint="@string/section"
+                    android:id="@+id/section_tb"
+                    android:importantForAutofill="no"
+                    android:inputType="textImeMultiLine"
+                    android:paddingBottom="@dimen/_15sdp"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
 

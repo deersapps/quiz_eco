@@ -43,11 +43,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     Button btnSignUp;
     Button btnLogIn;
     private String android_id;
-    EditText fn, ln, zn, em, ph, un, pas;
+    EditText fn, ln, zn, em, ph, un, pas,sec;
     AutoCompleteTextView dis,school, cl;
     ArrayAdapter arrayAdapterDistrict,arrayAdapterSchool;
     AutoCompleteTextView autoCompleteTextViewDistricts;
-    String fns, lns, diss, zns, schools, cls, ems, phs, uns, pass;
+    String fns, lns, diss, zns, schools, cls, sect, ems, phs, uns, pass;
     Integer districtId;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     public static final String SHARED_PREFS = "shared_prefs";
@@ -223,6 +223,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         zn = findViewById(R.id.zn_tb);
         school = findViewById(R.id.autoCompleteTextViewSchool);
         cl = findViewById(R.id.autoCompleteTextViewStandard);
+        sec = findViewById(R.id.section_tb);
         em = findViewById(R.id.email_tb);
         ph = findViewById(R.id.phone_tb);
         un = findViewById(R.id.username_tb);
@@ -256,6 +257,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         zns = zn.getText().toString().trim();
         schools = school.getText().toString().trim();
         cls = cl.getText().toString().trim();
+        sect = sec.getText().toString().trim();
         ems = em.getText().toString().trim();
         phs = ph.getText().toString().trim();
         uns = un.getText().toString().trim();

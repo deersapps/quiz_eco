@@ -437,6 +437,7 @@
     <string name="email">Email</string>
     <string name="phone_number">Phone Number</string>
     <string name="standard">Class</string>
+    <string name="section">Section</string>
     <string name="consent_user_add">I agree, this activity was performed by me</string>
     <string name="by_signing_i_agree_to_the_terms_and_policy">By signing, I agree to the terms and policy</string>
     <string name="sign_up_with_facebook">Sign up with Facebook</string>

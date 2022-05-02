@@ -2,7 +2,6 @@ package com.jkdeers.activitygame.ui.dashboard;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,7 +49,6 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -63,19 +60,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
+import com.jkdeers.activitygame.HTTPReq;
 import com.jkdeers.activitygame.MainActivity;
 import com.jkdeers.activitygame.R;
+import com.jkdeers.activitygame.VolleyCallback;
 import com.jkdeers.activitygame.databinding.FragmentDashboardBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -93,7 +94,7 @@ public class DashboardFragment extends Fragment {
     private static final String IMAGE_DIRECTORY_NAME = "AssetMapper";
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
-    String FilePathImage="";
+    String FilePathImage="",activityName;
 
     Button camButton ;
     Button submitButton ;
@@ -116,9 +117,16 @@ public class DashboardFragment extends Fragment {
     public static final String SHARED_PREFS = "shared_prefs";
     // key for storing email.
     public static final String EMAIL_KEY = "email_key";
+    private RequestQueue mQueue;
+    String[]
+            activityListStringArray;
+    String[] schoolListIds;
+    ArrayAdapter arrayAdapterActivities;
+    AutoCompleteTextView autoCompleteTextViewActivities;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
 
@@ -133,12 +141,7 @@ public class DashboardFragment extends Fragment {
         ddLayout = binding.activityDropDown;
         galleryButton = binding.btnAddPhotoGallery;
         String[] countries = getResources().getStringArray(R.array.activities);
-        ArrayAdapter arrayAdapterActivity = new ArrayAdapter(getContext(), R.layout.dropdown_item, R.id.textView, countries);
-        // get reference to the autocomplete text view
-        autoCompleteTextView = (AutoCompleteTextView)
-                binding.activtyAutoCompleteView;
-        //getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        autoCompleteTextView.setAdapter(arrayAdapterActivity);
+        getActivities();
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -551,7 +554,7 @@ public class DashboardFragment extends Fragment {
         JSONObject object = new JSONObject();
         try {
             //input your API parameters
-            object.put("Title", "Swerwer sasdfb");
+            object.put("Title", activityName);
             object.put("Description", "sdfe2r3sa asfda ");
             object.put("Userid", 13);
             object.put("DistrictId", 1);
@@ -578,7 +581,7 @@ public class DashboardFragment extends Fragment {
                         addedIt.setVisibility(View.VISIBLE);
                         imgPreviewassets.setVisibility(View.GONE);
                         camButton.setVisibility(View.GONE);
-                        autoCompleteTextView.setVisibility(View.GONE);
+                        autoCompleteTextViewActivities.setVisibility(View.GONE);
                         submitButton.setVisibility(View.GONE);
                         consent.setVisibility(View.GONE);
                         tvTitle.setVisibility(View.GONE);
@@ -659,6 +662,44 @@ public class DashboardFragment extends Fragment {
         textView.setTextColor(getResources().getColor(R.color.colorTheme));
         button1.setTextColor(getResources().getColor(R.color.colorThemeFaded));
 
+
+    }
+    void getActivities(){
+        mQueue = Volley.newRequestQueue(getContext());
+        mQueue.add(HTTPReq.getRequest( "https://orbisliferesearch.com/api/ActivityAPI/GetTypeActivities", new VolleyCallback() {
+            @Override
+            public void onSuccess(String response) throws JSONException {
+
+                //JSONArray jsonresultsarray = new JSONArray(response);
+                if (!response.equals("[]")) {
+                    //setting session key Name
+                    Log.v("response:", response);
+                    JSONArray jsonArray = new JSONArray(response);
+                    List<String> activityName = new ArrayList<String>();
+                    List<String> activityId = new ArrayList<String>();
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        activityName.add(jsonArray.getJSONObject(i).getString("name"));
+                        activityId.add(jsonArray.getJSONObject(i).getString("id"));
+                    }
+                    activityListStringArray = activityName.toArray(new String[activityName.size()]);
+                }
+                arrayAdapterActivities = new ArrayAdapter(getActivity().getApplicationContext(), R.layout.dropdown_item, R.id.textView, activityListStringArray);
+                // get reference to the autocomplete text view
+                autoCompleteTextViewActivities = binding.activtyAutoCompleteView;
+                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                autoCompleteTextViewActivities.setAdapter(arrayAdapterActivities);
+                activityName = autoCompleteTextViewActivities.getText().toString().trim();
+
+
+
+            }
+
+            @Override
+            public void onError(String result) {
+                System.out.println(result);
+            }
+        }));
 
     }
 }
