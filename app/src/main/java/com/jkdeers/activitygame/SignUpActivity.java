@@ -151,7 +151,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                                     otherSchoolNameTextInputLayout.setVisibility(View.VISIBLE);
                                                     otherEditTextBoxSchoolView = findViewById(R.id.otherEditTextBoxSchool);
 
-                                                    OtherSchoolName = otherEditTextBoxSchoolView.getText().toString().trim();
+
                                                 }
                                             }
                                         });
