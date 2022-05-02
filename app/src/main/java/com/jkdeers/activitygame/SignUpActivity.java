@@ -181,7 +181,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }));
 
         Log.i("districtsListStringArray", String.valueOf(districtsListStringArray));
-        //getDistrictsFromAPI();
+
 
 
 //        // create an array adapter and pass the required parameter
@@ -319,7 +319,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         queue.add(jsonObjectRequest);
     }
     void getDistrictsFromAPI() {
-        final ProgressDialog loading = ProgressDialog.show(this,"Signing in","Please wait");
+        final ProgressDialog loading = ProgressDialog.show(this,"Fetching List of school in this district","Please wait");
 
         String baseUrl = "https://orbisliferesearch.com/api/PrerequisiteAPIs/GetDistricts";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, baseUrl,
