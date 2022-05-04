@@ -514,7 +514,7 @@ public class DashboardFragment extends Fragment {
     // adding the point info into goole docs
     private void   addPointForm() {
         final ProgressDialog loading = ProgressDialog.show(getContext(),"Saving the earth bit by bit ","Please wait");
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        //getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         String lat = "34";
         String lon = "77";
         String photourl = imageUrl;
@@ -588,7 +588,7 @@ public class DashboardFragment extends Fragment {
                         imgIcon.setVisibility(View.GONE);
                         ddLayout.setVisibility(View.GONE);
                         galleryButton.setVisibility(View.GONE);
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                      //  getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 //                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         // going back to register screen after registration
                         Intent intent = new Intent(getContext(), MainActivity.class);
@@ -687,7 +687,7 @@ public class DashboardFragment extends Fragment {
                 arrayAdapterActivities = new ArrayAdapter(getActivity().getApplicationContext(), R.layout.dropdown_item, R.id.textView, activityListStringArray);
                 // get reference to the autocomplete text view
                 autoCompleteTextViewActivities = binding.activtyAutoCompleteView;
-                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+               // getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 autoCompleteTextViewActivities.setAdapter(arrayAdapterActivities);
                 activityName = autoCompleteTextViewActivities.getText().toString().trim();
 
