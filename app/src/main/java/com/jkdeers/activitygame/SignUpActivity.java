@@ -164,7 +164,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
                         for (String key : getKeyFromHashMapUsingValue(classMap, autoCompleteTextViewClass.getText().toString().trim())) {
-                            Log.i("selected class id is :",key);
+                           // Log.i("selected class id is :",key);
+                            Toast.makeText(getApplicationContext(), "CLASS ID " + key, Toast.LENGTH_LONG).show();
+
                         }
                     }
                 });
@@ -228,7 +230,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         String selection = (String) parent.getItemAtPosition(position);
                         int pos = -1;
                         for (String key : getKeyFromHashMapUsingValue(districtMap, autoCompleteTextViewDistricts.getText().toString().trim())) {
-                            Log.i("selected district id is :",key);
+                           // Log.i("selected district id is :",key);
+                            Toast.makeText(getApplicationContext(), "DISTRICT ID " + key, Toast.LENGTH_LONG).show();
                         }
 
                         for (int i = 0; i < districtsListStringArray.length; i++) {
@@ -273,7 +276,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
                                                 for (String key : getKeyFromHashMapUsingValue(schoolMap, autoCompleteTextViewSchool.getText().toString().trim())) {
-                                                    Log.i("selected school id is :",key);
+                                                    // Log.i("selected school id is :",key);
+                                                    Toast.makeText(getApplicationContext(), "SCHOOL ID " + key, Toast.LENGTH_LONG).show();
                                                 }
 
                                                 if (autoCompleteTextViewSchool.getText().toString().trim().equals("Other")) {
