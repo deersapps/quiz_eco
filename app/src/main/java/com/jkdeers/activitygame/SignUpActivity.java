@@ -64,6 +64,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     Map<String, String> classMap = new HashMap<>();
     Map<String, String> districtMap = new HashMap<>();
     Map<String, String> schoolMap = new HashMap<>();
+    int selectedDistrictId, selectedSchoolId, selectedClassId, selectedUserId;
 
 
     @Override
@@ -165,6 +166,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
                         for (String key : getKeyFromHashMapUsingValue(classMap, autoCompleteTextViewClass.getText().toString().trim())) {
                            // Log.i("selected class id is :",key);
+                            selectedClassId = Integer.parseInt(key);
                             Toast.makeText(getApplicationContext(), "CLASS ID " + key, Toast.LENGTH_LONG).show();
 
                         }
@@ -231,6 +233,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         int pos = -1;
                         for (String key : getKeyFromHashMapUsingValue(districtMap, autoCompleteTextViewDistricts.getText().toString().trim())) {
                            // Log.i("selected district id is :",key);
+                            selectedDistrictId = Integer.parseInt(key);
                             Toast.makeText(getApplicationContext(), "DISTRICT ID " + key, Toast.LENGTH_LONG).show();
                         }
 
@@ -238,7 +241,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             if (districtsListStringArray[i].equals(selection)) {
 
                                 pos = i+1;
-                                int dId = 1;
+                                int dId = selectedDistrictId;
                                 int zId = 1;
                                 String baseUrl = "https://orbisliferesearch.com/api/PrerequisiteAPIs/Getschools?districtid=";
                                 baseUrl = baseUrl+dId;
@@ -277,6 +280,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
                                                 for (String key : getKeyFromHashMapUsingValue(schoolMap, autoCompleteTextViewSchool.getText().toString().trim())) {
                                                     // Log.i("selected school id is :",key);
+                                                    selectedSchoolId = Integer.parseInt(key);
                                                     Toast.makeText(getApplicationContext(), "SCHOOL ID " + key, Toast.LENGTH_LONG).show();
                                                 }
 
