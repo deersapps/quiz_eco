@@ -2,24 +2,20 @@ package com.jkdeers.activitygame;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -39,9 +35,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnSignUp;
@@ -49,8 +47,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private String android_id;
     EditText fn, ln, zn, em, ph, un, pas,sec;
     AutoCompleteTextView dis,school, cl;
-    ArrayAdapter arrayAdapterDistrict,arrayAdapterSchool;
-    AutoCompleteTextView autoCompleteTextViewDistricts;
+    ArrayAdapter arrayAdapterDistrict,arrayAdapterSchool,arrayAdapterClass;
+    AutoCompleteTextView autoCompleteTextViewDistricts,autoCompleteTextViewClass;
     String fns, lns, diss, zns, schools, cls, sect, ems, phs, uns, pass, OtherSchoolName;
     Integer districtId;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -58,10 +56,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     String[]
     districtsListStringArray;
     String[] schoolListStringArray;
+    String[] classListStringArray;
     private RequestQueue mQueue;
     TextInputLayout otherSchoolNameTextInputLayout;
     EditText otherEditTextBoxSchoolView;
     boolean isAllFieldsChecked = false;
+    Map<String, String> classMap = new HashMap<>();
+    Map<String, String> districtMap = new HashMap<>();
+    Map<String, String> schoolMap = new HashMap<>();
 
 
     @Override
@@ -74,6 +76,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Log.d("*************************************************************************", android_id);
         // get reference to the string array that we just created
         InitializeDropDowns();
+        InitializeDropDownClass();
 
         Log.i("districtsListStringArray", String.valueOf(districtsListStringArray));
 
@@ -125,6 +128,69 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         pas = findViewById(R.id.password_tb);
     }
 
+    private void InitializeDropDownClass() {
+        mQueue = Volley.newRequestQueue(this);
+        mQueue.add(HTTPReq.getRequest( "https://orbisliferesearch.com/api/PrerequisiteAPIs/GetClasses", new VolleyCallback() {
+            @Override
+            public void onSuccess(String response) throws JSONException {
+                //JSONArray jsonresultsarray = new JSONArray(response);
+                if (!response.equals("[]")) {
+                    //setting session key Name
+                    Log.v("response:", response);
+                    JSONArray jsonArray = new JSONArray(response);
+                    List<String> listClass = new ArrayList<String>();
+                    List<String> lisClassId = new ArrayList<String>();
+
+
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        listClass.add(jsonArray.getJSONObject(i).getString("name"));
+
+                        lisClassId.add(jsonArray.getJSONObject(i).getString("id"));
+                        classMap.put(jsonArray.getJSONObject(i).getString("id"), jsonArray.getJSONObject(i).getString("name"));
+                    }
+                    classListStringArray = listClass.toArray(new String[listClass.size()]);
+                    Log.i("response map", String.valueOf(classMap));
+                }
+                arrayAdapterClass = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, classListStringArray);
+                // get reference to the autocomplete text view
+                autoCompleteTextViewClass = (AutoCompleteTextView)
+                        findViewById(R.id.autoCompleteTextViewStandard);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                autoCompleteTextViewClass.setAdapter(arrayAdapterClass);
+
+                autoCompleteTextViewClass.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                        for (String key : getKeyFromHashMapUsingValue(classMap, autoCompleteTextViewClass.getText().toString().trim())) {
+                            Log.i("selected class id is :",key);
+                        }
+                    }
+                });
+
+
+
+
+            }
+
+            @Override
+            public void onError(String result) {
+                System.out.println(result);
+            }
+        }));
+    }
+
+    private static Set<String> getKeyFromHashMapUsingValue(
+            Map<String, String> map, String value) {
+            return map
+                .entrySet()
+                .stream()
+                .filter(entry -> Objects.equals(entry.getValue(), value))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+
+    }
     private void InitializeDropDowns() {
         mQueue = Volley.newRequestQueue(this);
         mQueue.add(HTTPReq.getRequest( "https://orbisliferesearch.com/api/PrerequisiteAPIs/GetDistricts", new VolleyCallback() {
@@ -142,6 +208,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     {
                         listDistricts.add(jsonArray.getJSONObject(i).getString("name"));
                         listDistrictIds.add(jsonArray.getJSONObject(i).getString("id"));
+                        districtMap.put(jsonArray.getJSONObject(i).getString("id"), jsonArray.getJSONObject(i).getString("name"));
                     }
                     districtsListStringArray = listDistricts.toArray(new String[listDistricts.size()]);
                 }
@@ -160,6 +227,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         getDistrictsFromAPI();
                         String selection = (String) parent.getItemAtPosition(position);
                         int pos = -1;
+                        for (String key : getKeyFromHashMapUsingValue(districtMap, autoCompleteTextViewDistricts.getText().toString().trim())) {
+                            Log.i("selected district id is :",key);
+                        }
 
                         for (int i = 0; i < districtsListStringArray.length; i++) {
                             if (districtsListStringArray[i].equals(selection)) {
@@ -179,15 +249,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                             //setting session key Name
                                             Log.v("response:", response);
                                             JSONArray jsonArray = new JSONArray(response);
-                                            List<String> listDistricts = new ArrayList<String>();
-                                            List<String> listDistrictIds = new ArrayList<String>();
+                                            List<String> listSchools = new ArrayList<String>();
+                                            List<String> listSchoolsIds = new ArrayList<String>();
                                             for(int i=0;i<jsonArray.length();i++)
                                             {
-                                                listDistricts.add(jsonArray.getJSONObject(i).getString("name"));
-                                                listDistrictIds.add(jsonArray.getJSONObject(i).getString("id"));
+                                                listSchools.add(jsonArray.getJSONObject(i).getString("name"));
+                                                listSchoolsIds.add(jsonArray.getJSONObject(i).getString("id"));
+                                                schoolMap.put(jsonArray.getJSONObject(i).getString("id"), jsonArray.getJSONObject(i).getString("name"));
                                             }
-                                            listDistricts.add("Other");
-                                            schoolListStringArray = listDistricts.toArray(new String[listDistricts.size()]);
+                                            listSchools.add("Other");
+                                            schoolListStringArray = listSchools.toArray(new String[listSchools.size()]);
                                         }
 
                                         arrayAdapterSchool = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, schoolListStringArray);
@@ -201,6 +272,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                                                for (String key : getKeyFromHashMapUsingValue(schoolMap, autoCompleteTextViewSchool.getText().toString().trim())) {
+                                                    Log.i("selected school id is :",key);
+                                                }
 
                                                 if (autoCompleteTextViewSchool.getText().toString().trim().equals("Other")) {
 
@@ -365,6 +439,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 {
                                     listDistricts.add(jsonArray.getJSONObject(i).getString("name"));
                                     listDistrictIds.add(jsonArray.getJSONObject(i).getString("id"));
+                                    districtMap.put(jsonArray.getJSONObject(i).getString("id"), jsonArray.getJSONObject(i).getString("name"));
                                 }
                                 districtsListStringArray = listDistricts.toArray(new String[listDistricts.size()]);
                             }

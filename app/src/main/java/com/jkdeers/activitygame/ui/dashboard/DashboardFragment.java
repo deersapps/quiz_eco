@@ -182,7 +182,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (imgPreviewassets.getDrawable() == null) {
-                    showPopup("Please take pic");
+                    showPopup("Please Attach Photo");
                 } else if (!consent.isChecked()) {
                     showPopup("Please check the consent checkbox");
                 } else {
@@ -424,7 +424,7 @@ public class DashboardFragment extends Fragment {
 
     private void upload() throws IOException {
         final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setMessage("Uploading");
+        pd.setMessage("Uploading Photo");
         pd.setCanceledOnTouchOutside(false);
         pd.show();
 
@@ -523,34 +523,6 @@ public class DashboardFragment extends Fragment {
         // storing it in our string variable.
         String addedby = sharedpreferences.getString(EMAIL_KEY, null);
         String remarksText = "remarks";
-
-
-//        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-//        JSONObject object = new JSONObject();
-//        try {
-//            //input your API parameters
-//            object.put("parameter","value");
-//            object.put("parameter","value");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        // Enter the correct url for your api service site
-//        String url = getResources().getString(R.string.url);
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "https://orbisliferesearch.com/api/ActivityAPI/CreateActivity", object,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        resultTextView.setText("String Response : "+ response.toString());
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                resultTextView.setText("Error getting response");
-//            }
-//        });
-//        requestQueue.add(jsonObjectRequest);
-
-
         JSONObject object = new JSONObject();
         try {
             //input your API parameters
@@ -560,7 +532,7 @@ public class DashboardFragment extends Fragment {
             object.put("DistrictId", 1);
             object.put("ZoneId", 1);
             object.put("SchoolId", 1);
-            object.put("ClassId", 1);
+            object.put("ClassId", 4);
             object.put("TypeActivityId", 1);
             if (photourl!=null) {
                 object.put("Attachment",photourl);
@@ -614,21 +586,6 @@ public class DashboardFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> parmas = new HashMap<>();
-
-                //here we pass params
-//                parmas.put("Title", "Swerwer sasdfb");
-//                parmas.put("Description", "sdfe2r3sa asfda ");
-//                parmas.put("Userid", String.valueOf(13));
-//                parmas.put("DistrictId", String.valueOf(1));
-//                parmas.put("ZoneId", String.valueOf(1));
-//                parmas.put("SchoolId", String.valueOf(1));
-//                parmas.put("ClassId", String.valueOf(1));
-//                parmas.put("TypeActivityId", String.valueOf(1));
-//                if (photourl!=null) {
-//                    parmas.put("Attachment",photourl);
-//                } else {
-//                    parmas.put("photourl","no image taken for this point");
-//                }
                 return parmas;
             }
         };
