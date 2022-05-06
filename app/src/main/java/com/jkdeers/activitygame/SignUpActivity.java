@@ -52,6 +52,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     String fns, lns, diss, zns, schools, cls, sect, ems, phs, uns, pass, OtherSchoolName;
     Integer districtId;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+//    Explanations for passwod pattern:
+//
+//            (?=.*[0-9]) a digit must occur at least once
+//            (?=.*[a-z]) a lower case letter must occur at least once
+//            (?=.*[A-Z]) an upper case letter must occur at least once
+//            (?=.*[@#$%^&+=]) a special character must occur at least once
+//            (?=\\S+$) no whitespace allowed in the entire string
+//            .{8,} at least 8 characters
+    String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{7,}$";
     public static final String SHARED_PREFS = "shared_prefs";
     String[]
     districtsListStringArray;
@@ -236,7 +245,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                                 listZoneIds.add(jsonArray.getJSONObject(i).getString("id"));
                                                 zonesMap.put(jsonArray.getJSONObject(i).getString("id"), jsonArray.getJSONObject(i).getString("name"));
                                             }
-                                            listZones.add("Other");
                                             zonesListStringArray = listZones.toArray(new String[listZones.size()]);
                                         }
 
@@ -327,6 +335,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                                                             OtherSchoolName = otherEditTextBoxSchoolView.getText().toString().trim();
 
 
+                                                                        }
+                                                                        else {
+                                                                            otherSchoolNameTextInputLayout = findViewById(R.id.otherEditTextSchool);
+                                                                            otherSchoolNameTextInputLayout.setVisibility(View.GONE);
+                                                                            otherEditTextBoxSchoolView = findViewById(R.id.otherEditTextBoxSchool);
+
+                                                                          //  OtherSchoolName = otherEditTextBoxSchoolView.getText().toString().trim();
                                                                         }
                                                                     }
                                                                 });
@@ -420,12 +435,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         int min = 0;
         int max = 9999;
 
-//        isAllFieldsChecked = CheckAllFields();
-//        if (isAllFieldsChecked) {
-//            Toast.makeText(getApplicationContext(), "All validations passed", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(getApplicationContext(), "Please check errors", Toast.LENGTH_SHORT).show();
-//        }
+        isAllFieldsChecked = CheckAllFields();
+        if (isAllFieldsChecked) {
+            Toast.makeText(getApplicationContext(), "All validations passed", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Please check errors", Toast.LENGTH_SHORT).show();
+        }
         JSONObject object = new JSONObject();
 
 
@@ -639,8 +654,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (sec.getText().toString().trim().equals("Section") || sect.length() == 0 ) {
             sec.setError("Please select section");
             return false;
-        } else if (pas.length() < 5) {
-            pas.setError("Username has to be atleast one capital, one alphanumeric and some digits");
+        } else if (pas.length() < 7 || !pas.getText().toString().trim().matches(passwordPattern)) {
+            pas.setError("pass has to be atleast one digit, one lower, one upper , one special and >7 chars and no white space is allowed");
             return false;
         } else if (ph.length() < 10 || ph.length() > 10) {
             ph.setError("Invalid Phone number");
@@ -661,7 +676,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         ln.setError(null);
         dis.setError(null);
         school.setError(null);
-        otherEditTextBoxSchoolView.setError(null);
+        if (otherEditTextBoxSchoolView.getVisibility() == View.VISIBLE) {
+            otherEditTextBoxSchoolView.setError(null);
+        }
         cl.setError(null);
         sec.setError(null);
         pas.setError(null);
