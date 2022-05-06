@@ -262,12 +262,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                             int pos = -1;
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                                                for (String key : getKeyFromHashMapUsingValue(zonesMap, autoCompleteTextViewZone.getText().toString().trim())) {
-                                                    // Log.i("selected school id is :",key);
-                                                    selectedSchoolId = Integer.parseInt(key);
-                                                    Toast.makeText(getApplicationContext(), "ZONE ID " + key, Toast.LENGTH_LONG).show();
-
-                                                }
+//                                                for (String key : getKeyFromHashMapUsingValue(zonesMap, autoCompleteTextViewZone.getText().toString().trim())) {
+//                                                    // Log.i("selected school id is :",key);
+//                                                    selectedZoneId = Integer.parseInt(key);
+//                                                    Toast.makeText(getApplicationContext(), "ZONE ID " + key, Toast.LENGTH_LONG).show();
+//
+//                                                }
 
                                                 String selection = (String) parent.getItemAtPosition(position);
                                                 int pos = -1;
