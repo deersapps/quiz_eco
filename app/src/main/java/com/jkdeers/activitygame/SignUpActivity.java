@@ -420,12 +420,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         int min = 0;
         int max = 9999;
 
-        isAllFieldsChecked = CheckAllFields();
-        if (isAllFieldsChecked) {
-            Toast.makeText(getApplicationContext(), "All validations passed", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Please check errors", Toast.LENGTH_SHORT).show();
-        }
+//        isAllFieldsChecked = CheckAllFields();
+//        if (isAllFieldsChecked) {
+//            Toast.makeText(getApplicationContext(), "All validations passed", Toast.LENGTH_SHORT).show();
+//        } else {
+//            Toast.makeText(getApplicationContext(), "Please check errors", Toast.LENGTH_SHORT).show();
+//        }
         JSONObject object = new JSONObject();
 
 
@@ -435,10 +435,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     object.put( "DistrictId",1);
                     object.put( "ZoneId",1);
                     object.put( "SchoolId", 1);
-                    object.put("ClassId", 1);
+                    object.put("ClassId", 4);
                     object.put("PhoneNumber", "9898989887");
-                    object.put("Email", "tessssset@gmail.com");
-                    object.put("UserName", "TestUesewwwr123");
+                    object.put("Email", "asimjan123@gmail.com");
+                    object.put("UserName", "TestUAsim123");
                     object.put("Password", "Very@3434");
                     object.put("latitude", "34.0352758");
                     object.put("longitude", "74.5866882");
