@@ -48,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     EditText fn, ln, zn, em, ph, un, pas,sec;
     AutoCompleteTextView dis,school, cl;
     ArrayAdapter arrayAdapterDistrict,arrayAdapterSchool,arrayAdapterClass,arrayAdapterZones;
-    AutoCompleteTextView autoCompleteTextViewDistricts,autoCompleteTextViewClass;
+    AutoCompleteTextView autoCompleteTextViewDistricts,autoCompleteTextViewClass,autoCompleteTextViewZone,autoCompleteTextViewSchool ;
     String fns, lns, diss, zns, schools, cls, sect, ems, phs, uns, pass, OtherSchoolName;
     Integer districtId;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -57,7 +57,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     districtsListStringArray;
     String[] schoolListStringArray;
     String[] classListStringArray;
-    String[] zonesListString;
+    String[] zonesListStringArray;
     private RequestQueue mQueue;
     TextInputLayout otherSchoolNameTextInputLayout;
     EditText otherEditTextBoxSchoolView;
@@ -94,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         fn = findViewById(R.id.fn_tb);
         ln = findViewById(R.id.ln_tb);
         dis = findViewById(R.id.autoCompleteTextView);
-        zn = findViewById(R.id.zn_tb);
+        zn = findViewById(R.id.autoCompleteTextViewZones);
         school = findViewById(R.id.autoCompleteTextViewSchool);
         cl = findViewById(R.id.autoCompleteTextViewStandard);
         sec = findViewById(R.id.section_tb);
@@ -197,7 +197,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         findViewById(R.id.autoCompleteTextView);
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 autoCompleteTextViewDistricts.setAdapter(arrayAdapterDistrict);
-
+               // resetViewsOnSelectDistrict();
 
                 autoCompleteTextViewDistricts.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
@@ -217,10 +217,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                                 pos = i+1;
                                 int dId = selectedDistrictId;
-                                int zId = 1;
-                                String baseUrl = "https://orbisliferesearch.com/api/PrerequisiteAPIs/Getschools?districtid=";
+                                String baseUrl = "https://orbisliferesearch.com/api/PrerequisiteAPIs/GetZones?districtid=";
                                 baseUrl = baseUrl+dId;
-                                baseUrl = baseUrl +"&zoneid="+zId;
                                 mQueue.add(HTTPReq.getRequest( baseUrl, new VolleyCallback() {
                                     @Override
                                     public void onSuccess(String response) throws JSONException {
@@ -230,45 +228,128 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                             //setting session key Name
                                             Log.v("response:", response);
                                             JSONArray jsonArray = new JSONArray(response);
-                                            List<String> listSchools = new ArrayList<String>();
-                                            List<String> listSchoolsIds = new ArrayList<String>();
+                                            List<String> listZones = new ArrayList<String>();
+                                            List<String> listZoneIds = new ArrayList<String>();
                                             for(int i=0;i<jsonArray.length();i++)
                                             {
-                                                listSchools.add(jsonArray.getJSONObject(i).getString("name"));
-                                                listSchoolsIds.add(jsonArray.getJSONObject(i).getString("id"));
-                                                schoolMap.put(jsonArray.getJSONObject(i).getString("id"), jsonArray.getJSONObject(i).getString("name"));
+                                                listZones.add(jsonArray.getJSONObject(i).getString("name"));
+                                                listZoneIds.add(jsonArray.getJSONObject(i).getString("id"));
+                                                zonesMap.put(jsonArray.getJSONObject(i).getString("id"), jsonArray.getJSONObject(i).getString("name"));
                                             }
-                                            listSchools.add("Other");
-                                            schoolListStringArray = listSchools.toArray(new String[listSchools.size()]);
+                                            listZones.add("Other");
+                                            zonesListStringArray = listZones.toArray(new String[listZones.size()]);
                                         }
 
-                                        arrayAdapterSchool = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, schoolListStringArray);
+                                        //binding list of zones in the autocomplete view
+                                        arrayAdapterZones = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, zonesListStringArray);
                                         // get reference to the autocomplete text view
-                                        AutoCompleteTextView autoCompleteTextViewSchool = (AutoCompleteTextView)
-                                                findViewById(R.id.autoCompleteTextViewSchool);
+                                        autoCompleteTextViewZone = (AutoCompleteTextView)
+                                                findViewById(R.id.autoCompleteTextViewZones);
                                         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                                        autoCompleteTextViewSchool.setAdapter(arrayAdapterSchool);
+                                        autoCompleteTextViewZone.setAdapter(arrayAdapterZones);
 
-                                        autoCompleteTextViewSchool.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+                                        autoCompleteTextViewZone.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                                            String selection = (String) parent.getItemAtPosition(position);
+                                            int pos = -1;
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                                                for (String key : getKeyFromHashMapUsingValue(schoolMap, autoCompleteTextViewSchool.getText().toString().trim())) {
+                                                for (String key : getKeyFromHashMapUsingValue(zonesMap, autoCompleteTextViewZone.getText().toString().trim())) {
                                                     // Log.i("selected school id is :",key);
                                                     selectedSchoolId = Integer.parseInt(key);
-                                                    Toast.makeText(getApplicationContext(), "SCHOOL ID " + key, Toast.LENGTH_LONG).show();
-                                                }
-
-                                                if (autoCompleteTextViewSchool.getText().toString().trim().equals("Other")) {
-
-                                                    otherSchoolNameTextInputLayout = findViewById(R.id.otherEditTextSchool);
-                                                    otherSchoolNameTextInputLayout.setVisibility(View.VISIBLE);
-                                                    otherEditTextBoxSchoolView = findViewById(R.id.otherEditTextBoxSchool);
-
-                                                    OtherSchoolName = otherEditTextBoxSchoolView.getText().toString().trim();
-
+                                                    Toast.makeText(getApplicationContext(), "ZONE ID " + key, Toast.LENGTH_LONG).show();
 
                                                 }
+
+                                                String selection = (String) parent.getItemAtPosition(position);
+                                                int pos = -1;
+                                                for (String key : getKeyFromHashMapUsingValue(zonesMap, autoCompleteTextViewZone.getText().toString().trim())) {
+                                                    // Log.i("selected district id is :",key);
+                                                    selectedZoneId = Integer.parseInt(key);
+                                                    Toast.makeText(getApplicationContext(), "ZONE ID " + key, Toast.LENGTH_LONG).show();
+                                                }
+
+                                                for (int i = 0; i < districtsListStringArray.length; i++) {
+                                                    if (zonesListStringArray[i].equals(selection)) {
+
+                                                        pos = i+1;
+                                                        int dId = selectedDistrictId;
+                                                        int zId = selectedZoneId;
+                                                        String baseUrl = "https://orbisliferesearch.com/api/PrerequisiteAPIs/Getschools?districtid=";
+                                                        baseUrl = baseUrl+dId;
+                                                        baseUrl = baseUrl +"&zoneid="+zId;
+                                                        mQueue.add(HTTPReq.getRequest( baseUrl, new VolleyCallback() {
+                                                            @Override
+                                                            public void onSuccess(String response) throws JSONException {
+
+                                                                //JSONArray jsonresultsarray = new JSONArray(response);
+                                                                if (!response.equals("[]")) {
+                                                                    //setting session key Name
+                                                                    Log.v("response:", response);
+                                                                    JSONArray jsonArray = new JSONArray(response);
+                                                                    List<String> listSchools = new ArrayList<String>();
+                                                                    List<String> listSchoolsIds = new ArrayList<String>();
+                                                                    for(int i=0;i<jsonArray.length();i++)
+                                                                    {
+                                                                        listSchools.add(jsonArray.getJSONObject(i).getString("name"));
+                                                                        listSchoolsIds.add(jsonArray.getJSONObject(i).getString("id"));
+                                                                        schoolMap.put(jsonArray.getJSONObject(i).getString("id"), jsonArray.getJSONObject(i).getString("name"));
+                                                                    }
+                                                                    listSchools.add("Other");
+                                                                    schoolListStringArray = listSchools.toArray(new String[listSchools.size()]);
+                                                                }
+
+                                                                //binding the list of schools to the autocompleteview
+                                                                arrayAdapterSchool = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, schoolListStringArray);
+                                                                // get reference to the autocomplete text view
+                                                                autoCompleteTextViewSchool = (AutoCompleteTextView)
+                                                                        findViewById(R.id.autoCompleteTextViewSchool);
+                                                                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                                                                autoCompleteTextViewSchool.setAdapter(arrayAdapterSchool);
+
+
+                                                                autoCompleteTextViewSchool.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+                                                                    @Override
+                                                                    public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                                                                        for (String key : getKeyFromHashMapUsingValue(schoolMap, autoCompleteTextViewSchool.getText().toString().trim())) {
+                                                                            // Log.i("selected school id is :",key);
+                                                                            selectedSchoolId = Integer.parseInt(key);
+                                                                            Toast.makeText(getApplicationContext(), "SCHOOL ID " + key, Toast.LENGTH_LONG).show();
+                                                                        }
+
+                                                                        if (autoCompleteTextViewSchool.getText().toString().trim().equals("Other")) {
+
+                                                                            otherSchoolNameTextInputLayout = findViewById(R.id.otherEditTextSchool);
+                                                                            otherSchoolNameTextInputLayout.setVisibility(View.VISIBLE);
+                                                                            otherEditTextBoxSchoolView = findViewById(R.id.otherEditTextBoxSchool);
+
+                                                                            OtherSchoolName = otherEditTextBoxSchoolView.getText().toString().trim();
+
+
+                                                                        }
+                                                                    }
+                                                                });
+
+
+
+
+                                                            }
+
+                                                            @Override
+                                                            public void onError(String result) {
+                                                                System.out.println(result);
+                                                            }
+                                                        }));
+                                                        break;
+                                                    }
+                                                }
+                                                Log.i("Position " , String.valueOf(pos)); //check it now in Logcat
+
+
+
+
+
                                             }
                                         });
 
@@ -288,6 +369,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Log.i("Position " , String.valueOf(pos)); //check it now in Logcat
                     }
                 });
+
             }
 
             @Override
@@ -307,7 +389,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             }
             case R.id.btnSignUp: {
-                registerUser();
+              registerUser();
 //                startActivity(new Intent(getApplicationContext(), VerificationActivity.class));
 //                finish();
                 break;
@@ -462,35 +544,46 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         queue.add(stringRequest);
     }
     void getSchoolsFromAPI() {
-        String baseUrl = "";
+        final ProgressDialog loading = ProgressDialog.show(this,"Fetching List of school in this district","Please wait");
+
+        String baseUrl = "https://orbisliferesearch.com/api/PrerequisiteAPIs/Getschools?districtid=";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, baseUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        String[] districtsList = new String[22];
                         try {
-                            JSONArray jsonresultsarray = new JSONArray(response);
+                            loading.dismiss();
+                            //JSONArray jsonresultsarray = new JSONArray(response);
                             if (!response.equals("[]")) {
                                 //setting session key Name
                                 Log.v("response:", response);
                                 JSONArray jsonArray = new JSONArray(response);
-
+                                List<String> listDistricts = new ArrayList<String>();
+                                List<String> listDistrictIds = new ArrayList<String>();
                                 for(int i=0;i<jsonArray.length();i++)
                                 {
-                                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                    Double Lat = Double.parseDouble(jsonObject1.optString("Latitude"));
-                                    Double Long = Double.parseDouble(jsonObject1.optString("Longitude"));
-                                    String City = (String) jsonObject1.opt("Name");
-                                    Log.v("here is ur name",jsonObject1.toString());
+                                    listDistricts.add(jsonArray.getJSONObject(i).getString("name"));
+                                    listDistrictIds.add(jsonArray.getJSONObject(i).getString("id"));
+                                    districtMap.put(jsonArray.getJSONObject(i).getString("id"), jsonArray.getJSONObject(i).getString("name"));
                                 }
-                            } else
-                            {
-
+                                districtsListStringArray = listDistricts.toArray(new String[listDistricts.size()]);
                             }
+                            arrayAdapterDistrict = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, districtsListStringArray);
+                            // get reference to the autocomplete text view
+                            autoCompleteTextViewDistricts = (AutoCompleteTextView)
+                                    findViewById(R.id.autoCompleteTextView);
+                            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                            autoCompleteTextViewDistricts.setAdapter(arrayAdapterDistrict);
+
+
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
+
                 },
                 new Response.ErrorListener() {
                     @Override
@@ -511,6 +604,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(stringRequest);
     }
+
 
     private boolean CheckAllFields() {
         if (fn.length() == 0) {
@@ -558,9 +652,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         } else if (un.length()<5) {
             un.setError("Username too short");
             return false;
+        } else if (zn.length() == 0 || zn.getText().equals("Zones")) {
+            zn.setError("Select Zones");
         }
-
+        zn.setError(null);
+        school.setError(null);
+        fn.setError(null);
+        ln.setError(null);
+        dis.setError(null);
+        school.setError(null);
+        otherEditTextBoxSchoolView.setError(null);
+        cl.setError(null);
+        sec.setError(null);
+        pas.setError(null);
+        ph.setError(null);
+        em.setError(null);
         // after all validation return true.
         return true;
     }
+
 }
