@@ -62,7 +62,7 @@ public class StartActivity extends AppCompatActivity {
                     finish();
 
                     Intent i = new Intent();
-                    i.setClass(sPlashScreen, Signin.class);
+                    i.setClass(sPlashScreen, registration.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
 
