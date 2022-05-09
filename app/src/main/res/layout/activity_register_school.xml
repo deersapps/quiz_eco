@@ -231,7 +231,7 @@
                 android:textColor="@color/colorWhite" />
 
             <Button
-                android:id="@+id/btnSignUp"
+                android:id="@+id/register_school_button"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_10sdp"

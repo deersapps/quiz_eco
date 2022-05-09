@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -35,22 +36,32 @@ public class RegisterSchool extends AppCompatActivity {
     AutoCompleteTextView autoCompleteTextViewDistricts,autoCompleteTextViewZone;
     int selectedDistrictId,selectedZoneId;
     EditText SchoolName,SchoolAddress,SchoolEmail,SchoolPhone,SchoolStudents;
+    Button RegisterButton;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_school);
         fillDistrict();
-        fillZones();
         SchoolName = findViewById(R.id.schoolName);
         SchoolStudents = findViewById(R.id.student_school_number);
         SchoolAddress = findViewById(R.id.school_address);
         SchoolEmail = findViewById(R.id.emaiL_school);
         SchoolPhone = findViewById(R.id.phone_school);
+        RegisterButton = findViewById(R.id.register_school_button);
+        RegisterButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+              if(checkFields()) {
+                  Toast.makeText(getApplicationContext(),"Passed",Toast.LENGTH_SHORT).show();
+              } else {
+                  Toast.makeText(getApplicationContext(),"FAILED",Toast.LENGTH_SHORT).show();
+              }
+            }
+        });
     }
 
-    private void fillZones() {
-    }
+
     private void fillDistrict() {
         mQueue = Volley.newRequestQueue(this);
         mQueue.add(HTTPReq.getRequest("https://orbisliferesearch.com/api/PrerequisiteAPIs/GetDistricts", new VolleyCallback() {
@@ -180,27 +191,27 @@ public class RegisterSchool extends AppCompatActivity {
             return false;
         }
         else if (autoCompleteTextViewDistricts.getText().toString().trim().equals("")) {
-            autoCompleteTextViewDistricts.setError("Enter School Name");
+            autoCompleteTextViewDistricts.setError("Select District");
             return false;
         }
         else if (autoCompleteTextViewZone.getText().toString().trim().equals("")) {
-            autoCompleteTextViewZone.setError("Enter School Name");
+            autoCompleteTextViewZone.setError("Select Zone");
             return false;
         }
         else if (SchoolStudents.getText().toString().trim().equals("")) {
-            SchoolStudents.setError("Enter School Name");
+            SchoolStudents.setError("Enter no. of students");
             return false;
         }
         else if (SchoolAddress.getText().toString().trim().equals("")) {
-            SchoolAddress.setError("Enter School Name");
+            SchoolAddress.setError("Enter Address");
             return false;
         }
-        else if (SchoolEmail.getText().toString().trim().equals("")) {
-            SchoolEmail.setError("Enter School Name");
+        else if (SchoolEmail.getText().toString().trim().equals("") || !SchoolEmail.getText().toString().trim().matches(emailPattern)) {
+            SchoolEmail.setError("Enter Email");
             return false;
         }
-        else if (SchoolPhone.getText().toString().trim().equals("")) {
-            SchoolPhone.setError("Enter School Name");
+        else if (SchoolPhone.getText().toString().trim().equals("") || SchoolPhone.getText().toString().trim().length()>10 ||SchoolPhone.getText().toString().trim().length()<10) {
+            SchoolPhone.setError("Enter Phone");
             return false;
         } else  {
             return  true;
