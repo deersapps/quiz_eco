@@ -641,6 +641,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             if (otherEditTextBoxSchoolView.getVisibility() == View.VISIBLE)
             if (OtherSchoolName.length() == 0) {
                 otherEditTextBoxSchoolView.setError("Please fill in the school name");
+                return false;
             }
         }
         if (school.getText().toString().trim().equals("School") || schools.length() == 0) {
