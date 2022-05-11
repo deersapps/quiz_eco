@@ -2,7 +2,12 @@ package com.jkdeers.activitygame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,11 +18,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +48,7 @@ public class RegisterSchool extends AppCompatActivity {
     ArrayAdapter arrayAdapterDistrict,arrayAdapterZones;
     AutoCompleteTextView autoCompleteTextViewDistricts,autoCompleteTextViewZone;
     int selectedDistrictId,selectedZoneId;
-    EditText SchoolName,SchoolAddress,SchoolEmail,SchoolPhone,SchoolStudents;
+    EditText SchoolName,SchoolAddress,SchoolEmail,SchoolPhone,SchoolStudents,schoolUdise;
     Button RegisterButton;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -49,11 +62,14 @@ public class RegisterSchool extends AppCompatActivity {
         SchoolAddress = findViewById(R.id.school_address);
         SchoolEmail = findViewById(R.id.emaiL_school);
         SchoolPhone = findViewById(R.id.phone_school);
+        schoolUdise = findViewById(R.id.school_UDISE);
         RegisterButton = findViewById(R.id.register_school_button);
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
               if(checkFields()) {
                   Toast.makeText(getApplicationContext(),"Passed",Toast.LENGTH_SHORT).show();
+                  addPointForm();
+
               } else {
                   Toast.makeText(getApplicationContext(),"FAILED",Toast.LENGTH_SHORT).show();
               }
@@ -88,6 +104,9 @@ public class RegisterSchool extends AppCompatActivity {
                 autoCompleteTextViewDistricts.setAdapter(arrayAdapterDistrict);
                 // resetViewsOnSelectDistrict();
 
+
+                autoCompleteTextViewZone = (AutoCompleteTextView)
+                        findViewById(R.id.school_list_zones);
                 autoCompleteTextViewDistricts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                     @Override
@@ -129,8 +148,6 @@ public class RegisterSchool extends AppCompatActivity {
                                         //binding list of zones in the autocomplete view
                                         arrayAdapterZones = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_item, R.id.textView, zonesListStringArray);
                                         // get reference to the autocomplete text view
-                                        autoCompleteTextViewZone = (AutoCompleteTextView)
-                                                findViewById(R.id.school_list_zones);
                                         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                                         autoCompleteTextViewZone.setAdapter(arrayAdapterZones);
 
@@ -174,6 +191,73 @@ public class RegisterSchool extends AppCompatActivity {
             }
         }));
     }
+
+    private void   addPointForm() {
+        final ProgressDialog loading = ProgressDialog.show(this,"Creating your account ","Please wait");
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        JSONObject object = new JSONObject();
+        try {
+            //input your API parameters
+            object.put("Title", "Title");
+            object.put("Description", "sdfe2r3sa asfda ");
+            object.put("Userid", 13);
+            object.put("DistrictId", 1);
+            object.put("ZoneId", 1);
+            object.put("SchoolId", 1);
+            object.put("ClassId", 4);
+            object.put("TypeActivityId", 1);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbxL51N6TS4GAOMO71IJX8Hp2mJ8Pcvw6EkAF1QStRblNfo1B-kc6NHNebhVPblPSL7p/exec",
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "https://orbisliferesearch.com/T_School/Create", object,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //after email sent and data added to sheets we dismiss the progress screen
+                        loading.dismiss();
+
+                        //  getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                        // going back to register screen after registration
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity(intent);
+                            }
+                        }, 1000);
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("************************* \n*****\n****", String.valueOf(error));
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> parmas = new HashMap<>();
+                return parmas;
+            }
+        };
+
+        int socketTimeOut = 50000;// u can change this .. here it is 50 seconds
+
+        RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        queue.add(jsonObjectRequest);
+
+    }
     private static Set<String> getKeyFromHashMapUsingValue(
             Map<String, String> map, String value) {
         return map
@@ -196,6 +280,10 @@ public class RegisterSchool extends AppCompatActivity {
         }
         else if (autoCompleteTextViewZone.getText().toString().trim().equals("")) {
             autoCompleteTextViewZone.setError("Select Zone");
+            return false;
+        }
+        else if (schoolUdise.getText().toString().trim().equals("")) {
+            schoolUdise.setError("Enter UDISE Code");
             return false;
         }
         else if (SchoolStudents.getText().toString().trim().equals("")) {

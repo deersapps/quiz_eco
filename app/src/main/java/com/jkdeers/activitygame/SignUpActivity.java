@@ -649,7 +649,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return false;
         }
         if (cl.getText().toString().trim().equals("Class") || cls.length() == 0) {
-            cl.setError("Please select School");
+            cl.setError("Please select Class");
             return false;
         }
         if (sec.getText().toString().trim().equals("Section") || sect.length() == 0 ) {
