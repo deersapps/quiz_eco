@@ -22,8 +22,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -79,6 +79,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DashboardFragment extends Fragment {
 
@@ -95,6 +98,9 @@ public class DashboardFragment extends Fragment {
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     String FilePathImage="",activityName;
+    
+    Map<String, String> activitiesMap = new HashMap<>();
+    int selectedActivityId;
 
     Button camButton ;
     Button submitButton ;
@@ -533,7 +539,8 @@ public class DashboardFragment extends Fragment {
             object.put("ZoneId", 1);
             object.put("SchoolId", 1);
             object.put("ClassId", 4);
-            object.put("TypeActivityId", 1);
+            object.put("TypeActivityId", selectedActivityId);
+            object.put("IsApproved ", false);
             if (photourl!=null) {
                 object.put("Attachment",photourl);
             } else {
@@ -638,6 +645,7 @@ public class DashboardFragment extends Fragment {
                     {
                         activityName.add(jsonArray.getJSONObject(i).getString("name"));
                         activityId.add(jsonArray.getJSONObject(i).getString("id"));
+                        activitiesMap.put(jsonArray.getJSONObject(i).getString("id"), jsonArray.getJSONObject(i).getString("name"));
                     }
                     activityListStringArray = activityName.toArray(new String[activityName.size()]);
                 }
@@ -648,6 +656,21 @@ public class DashboardFragment extends Fragment {
                 autoCompleteTextViewActivities.setAdapter(arrayAdapterActivities);
                 activityName = autoCompleteTextViewActivities.getText().toString().trim();
 
+                autoCompleteTextViewActivities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                        String selection = (String) parent.getItemAtPosition(position);
+                        int pos = -1;
+                        for (String key : getKeyFromHashMapUsingValue(activitiesMap, autoCompleteTextViewActivities.getText().toString().trim())) {
+                            // Log.i("selected district id is :",key);
+                            selectedActivityId = Integer.parseInt(key);
+                            Toast.makeText(getContext(), "Activity Id " + key, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
 
 
             }
@@ -657,6 +680,16 @@ public class DashboardFragment extends Fragment {
                 System.out.println(result);
             }
         }));
+
+    }
+    private static Set<String> getKeyFromHashMapUsingValue(
+            Map<String, String> map, String value) {
+        return map
+                .entrySet()
+                .stream()
+                .filter(entry -> Objects.equals(entry.getValue(), value))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
 
     }
 }
