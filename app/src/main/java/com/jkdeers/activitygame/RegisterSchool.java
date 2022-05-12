@@ -3,9 +3,7 @@ package com.jkdeers.activitygame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,10 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -48,7 +47,8 @@ public class RegisterSchool extends AppCompatActivity {
     ArrayAdapter arrayAdapterDistrict,arrayAdapterZones;
     AutoCompleteTextView autoCompleteTextViewDistricts,autoCompleteTextViewZone;
     int selectedDistrictId,selectedZoneId;
-    EditText SchoolName,SchoolAddress,SchoolEmail,SchoolPhone,SchoolStudents,schoolUdise;
+    EditText SchoolName, schoolAddress, schoolEmail, schoolPhone, schoolStudents,schoolUdise;
+    CheckBox schoolAgree;
     Button RegisterButton;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -58,21 +58,34 @@ public class RegisterSchool extends AppCompatActivity {
         setContentView(R.layout.activity_register_school);
         fillDistrict();
         SchoolName = findViewById(R.id.schoolName);
-        SchoolStudents = findViewById(R.id.student_school_number);
-        SchoolAddress = findViewById(R.id.school_address);
-        SchoolEmail = findViewById(R.id.emaiL_school);
-        SchoolPhone = findViewById(R.id.phone_school);
+        schoolStudents = findViewById(R.id.student_school_number);
+        schoolAddress = findViewById(R.id.school_address);
+        schoolEmail = findViewById(R.id.emaiL_school);
+        schoolPhone = findViewById(R.id.phone_school);
         schoolUdise = findViewById(R.id.school_UDISE);
+        schoolAgree = findViewById(R.id.schoolSignUpCheckbox);
         RegisterButton = findViewById(R.id.register_school_button);
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-              if(checkFields()) {
-                  Toast.makeText(getApplicationContext(),"Passed",Toast.LENGTH_SHORT).show();
-                  addPointForm();
+                if (schoolAgree.isChecked()) {
+                    if (checkFields()) {
+                        addPointForm();
 
-              } else {
-                  Toast.makeText(getApplicationContext(),"FAILED",Toast.LENGTH_SHORT).show();
-              }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please correct errors", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please check the consent checkbox", Toast.LENGTH_SHORT).show();
+                    schoolAgree.setError("");
+                }
+            }
+        });
+        schoolAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               if (buttonView.isChecked()) {
+                    schoolAgree.setError(null);
+                }
             }
         });
     }
@@ -197,21 +210,19 @@ public class RegisterSchool extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         JSONObject object = new JSONObject();
         try {
-            //input your API parameters
-            object.put("Title", "Title");
-            object.put("Description", "sdfe2r3sa asfda ");
-            object.put("Userid", 13);
-            object.put("DistrictId", 1);
-            object.put("ZoneId", 1);
-            object.put("SchoolId", 1);
-            object.put("ClassId", 4);
-            object.put("TypeActivityId", 1);
-
+            object.put("name",SchoolName.getText().toString().trim());
+            object.put(      "UdiseCode", schoolUdise.getText().toString().trim());
+            object.put(      "Address", schoolAddress.getText().toString().trim() );
+            object.put(     "phone", schoolPhone.getText().toString().trim());
+            object.put(      "email", schoolEmail.getText().toString().trim());
+            object.put(      "NoOfStudents", Integer.parseInt(schoolStudents.getText().toString().trim()));
+            object.put(      "DistrictId", selectedDistrictId);
+            object.put(       "ZoneId", selectedZoneId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         // StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbxL51N6TS4GAOMO71IJX8Hp2mJ8Pcvw6EkAF1QStRblNfo1B-kc6NHNebhVPblPSL7p/exec",
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "https://orbisliferesearch.com/T_School/Create", object,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "https://orbisliferesearch.com/api/PrerequisiteAPIs/CreaetSchool", object,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -221,14 +232,19 @@ public class RegisterSchool extends AppCompatActivity {
                         //  getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 //                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         // going back to register screen after registration
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        try {
+                            Toast.makeText(getApplicationContext(), "School " + response.get("message"), Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(getApplicationContext(), registration.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 startActivity(intent);
                             }
-                        }, 1000);
+                        }, 2000);
 
 
                     }
@@ -283,23 +299,23 @@ public class RegisterSchool extends AppCompatActivity {
             return false;
         }
         else if (schoolUdise.getText().toString().trim().equals("")) {
-            schoolUdise.setError("Enter UDISE Code");
+            schoolUdise.setError("Correct UDISE Code");
             return false;
         }
-        else if (SchoolStudents.getText().toString().trim().equals("")) {
-            SchoolStudents.setError("Enter no. of students");
+        else if (schoolStudents.getText().toString().trim().equals("")) {
+            schoolStudents.setError("Correct no. of students");
             return false;
         }
-        else if (SchoolAddress.getText().toString().trim().equals("")) {
-            SchoolAddress.setError("Enter Address");
+        else if (schoolAddress.getText().toString().trim().equals("")) {
+            schoolAddress.setError("Correct Address");
             return false;
         }
-        else if (SchoolEmail.getText().toString().trim().equals("") || !SchoolEmail.getText().toString().trim().matches(emailPattern)) {
-            SchoolEmail.setError("Enter Email");
+        else if (schoolEmail.getText().toString().trim().equals("") || !schoolEmail.getText().toString().trim().matches(emailPattern)) {
+            schoolEmail.setError("Correct Email");
             return false;
         }
-        else if (SchoolPhone.getText().toString().trim().equals("") || SchoolPhone.getText().toString().trim().length()>10 ||SchoolPhone.getText().toString().trim().length()<10) {
-            SchoolPhone.setError("Enter Phone");
+        else if (schoolPhone.getText().toString().trim().equals("") || schoolPhone.getText().toString().trim().length()>10 || schoolPhone.getText().toString().trim().length()<10) {
+            schoolPhone.setError("Correct Phone");
             return false;
         } else  {
             return  true;

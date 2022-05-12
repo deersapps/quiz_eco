@@ -248,6 +248,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:backgroundTint="@color/colorWhite"
                 android:buttonTint="@color/colorWhite"
+                android:id="@+id/schoolSignUpCheckbox"
                 android:text="@string/by_signing_i_agree_to_the_terms_and_policy"
                 android:textColor="@color/colorWhite" />
 
