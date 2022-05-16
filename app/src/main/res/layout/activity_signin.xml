@@ -68,8 +68,9 @@
                 android:backgroundTint="@color/colorWhite"
                 android:hint="@string/username"
                 android:importantForAutofill="no"
-                android:inputType="textEmailAddress"
+                android:inputType="textImeMultiLine"
                 android:paddingBottom="@dimen/_15sdp"
+                android:id="@+id/un_edit_text"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -91,6 +92,7 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:backgroundTint="@color/colorWhite"
                 android:hint="@string/password"
+                android:id="@+id/pass_edit_text"
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
                 android:paddingBottom="@dimen/_15sdp"

@@ -10,6 +10,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,10 +18,12 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import android.provider.Settings.Secure;
@@ -31,9 +34,23 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.jkdeers.activitygame.databinding.ActivityMainBinding;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Signin extends AppCompatActivity implements View.OnClickListener {
@@ -42,6 +59,8 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
     TextView tvForgetPassword;
     Button btnLogin;
     Button btnSignUp;
+    EditText btnUn,btnPwd;
+    JSONObject credentialsObject = new JSONObject();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +75,8 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
         tvForgetPassword = findViewById(R.id.tvForgetPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnSignUp = findViewById(R.id.btnSignUp);
+        btnUn = findViewById(R.id.un_edit_text);
+        btnPwd = findViewById(R.id.pass_edit_text);
 
         tvForgetPassword.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
@@ -72,8 +93,7 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                 break;
             }
             case R.id.btnLogin:{
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
+                loginProcess();
                 break;
             }
             case R.id.btnSignUp:{
@@ -168,6 +188,66 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
         button1.setTextColor(Color.RED);
         alert1.setCanceledOnTouchOutside(false);
     }
+    private void   loginProcess() {
+        final ProgressDialog loading = ProgressDialog.show(this,"Signing you in ","Please wait");
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        try {
+            credentialsObject.put("UserName",btnUn.getText().toString().trim());
+            credentialsObject.put("Password",btnPwd.getText().toString().trim());
+        } catch (
+                JSONException e) {
+            e.printStackTrace();
+        }
+        // StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbxL51N6TS4GAOMO71IJX8Hp2mJ8Pcvw6EkAF1QStRblNfo1B-kc6NHNebhVPblPSL7p/exec",
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "https://orbisliferesearch.com/api/AuthenticationApi/login", credentialsObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //after email sent and data added to sheets we dismiss the progress screen
+                        loading.dismiss();
 
+                        //  getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                        // going back to register screen after registration
+                        try {
+                            if (response.get("status") == "success") {
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            } else  {
+                                Toast.makeText(getApplicationContext(), "status is " + response.get("message"), Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("************************* \n*****\n****", String.valueOf(error));
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> parmas = new HashMap<>();
+                return parmas;
+            }
+        };
+
+        int socketTimeOut = 50000;// u can change this .. here it is 50 seconds
+
+        RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        queue.add(jsonObjectRequest);
+
+    }
 
 }
