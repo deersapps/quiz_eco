@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.LocationManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -40,12 +43,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import com.jkdeers.activitygame.GPSTracker;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnSignUp;
     Button btnLogIn;
     private String android_id;
-    EditText fn, ln, zn, em, ph, un, pas,sec;
+    EditText fn, ln, zn, em, ph, un, pas,sec,lngTb,latTb;
     AutoCompleteTextView dis,school, cl;
     ArrayAdapter arrayAdapterDistrict,arrayAdapterSchool,arrayAdapterClass,arrayAdapterZones;
     AutoCompleteTextView autoCompleteTextViewDistricts,autoCompleteTextViewClass,autoCompleteTextViewZone,autoCompleteTextViewSchool ;
@@ -76,6 +80,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     Map<String, String> schoolMap = new HashMap<>();
     Map<String, String> zonesMap = new HashMap<>();
     int selectedDistrictId, selectedSchoolId, selectedClassId, selectedUserId,selectedZoneId;
+
+    float lat_a,lng_a;
 
 
     @Override
@@ -111,6 +117,49 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         ph = findViewById(R.id.phone_tb);
         un = findViewById(R.id.username_tb);
         pas = findViewById(R.id.password_tb);
+        latTb = findViewById(R.id.lat_tb);
+        lngTb= findViewById(R.id.lng_tb);
+
+        GPSTracker gps;
+        LocationManager locationManager;
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        final boolean isGPSEnabled=locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        final ImageView gpsIconFirstRun=(ImageView) findViewById(R.id.image_icon_gps);
+        if (isGPSEnabled){
+            gpsIconFirstRun.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_not_fixed_24));
+            gps = new GPSTracker(SignUpActivity.this);
+            lat_a= gps.getLatitude();
+            lng_a= gps.getLongitude();
+            latTb.setText(String.valueOf(lat_a));
+            lngTb.setText(String.valueOf(lng_a));
+            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + lat_a + "\nLong: " + lng_a, Toast.LENGTH_SHORT).show();
+        }
+        else{
+            gpsIconFirstRun.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_off_24));
+        }
+
+
+
+
+        gpsIconFirstRun.setOnClickListener(new View.OnClickListener() {
+            GPSTracker gps;
+            @Override
+            public void onClick(View arg0) {
+                // create class object
+                gps = new GPSTracker(SignUpActivity.this);
+
+                // check if GPS enabled
+                if(gps.canGetLocation()){
+                    lat_a= gps.getLatitude();
+                    lng_a= gps.getLongitude();
+                    latTb.setText(String.valueOf(lat_a));
+                    lngTb.setText(String.valueOf(lng_a));
+                }else{
+                    gps.showSettingsAlert();
+                }
+
+            }
+        });
     }
 
     private void InitializeDropDownClass() {
@@ -415,6 +464,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     private void registerUser() {
+        GPSTracker gps;
+        LocationManager locationManager;
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        final boolean isGPSEnabled=locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        gps = new GPSTracker(SignUpActivity.this);
+        if (!isGPSEnabled) {
+            gps.showSettingsAlert();
+        }
         // final ProgressDialog loading = ProgressDialog.show(this,"Registering you now","Please wait");
         fns = fn.getText().toString().trim();
         lns = ln.getText().toString().trim();
@@ -689,4 +746,37 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
+    /* after redirecting to gps settings we call onreusume method to change state of toggle button to show gps is on
+     * */
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+
+        LocationManager locationManager;
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        final boolean isGPSEnabled=locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        super.onResume();
+        final ImageView GPSbutton=(ImageView) findViewById(R.id.image_icon_gps);
+        if (isGPSEnabled){
+            Toast.makeText(getApplicationContext(), "GPS ENABLED" , Toast.LENGTH_LONG).show();
+            GPSbutton.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_not_fixed_24));
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "GPS DISABLED CLICK THE LOCATION BUTTON  ON TOP TO ENABLE IT" , Toast.LENGTH_LONG).show();
+            GPSbutton.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_off_24));
+        }
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1) {
+            Log.v("blah", "blah blah");
+            ImageView toggle_utilityscreen_gps = (ImageView) findViewById(R.id.image_icon_gps);
+            toggle_utilityscreen_gps.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_not_fixed_24));
+        }
+
+
+    }
 }
