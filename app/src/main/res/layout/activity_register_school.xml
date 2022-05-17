@@ -237,8 +237,81 @@
                     android:textColor="@color/colorWhite"
                     android:textColorHint="@color/colorWhite" />
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:text="Click on the button to turn on gps \n or to get a an accurate location "></TextView>
+            <ImageView
+                android:id="@+id/image_icon_gps_school"
+                android:layout_width="48sp"
+                android:layout_height="48sp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_baseline_gps_off_24"
+                tools:ignore="DuplicateIds"></ImageView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:id="@+id/accuracySchoolGPS"
+                android:text="Accuracy(m):"></TextView>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                app:hintTextColor="@color/colorWhite">
 
+                <EditText
+                    android:id="@+id/lat_tb_school"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:backgroundTint="@color/colorWhite"
+                    android:hint="Latitude"
+                    android:editable="false"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:importantForAutofill="no"
+                    android:inputType="textImeMultiLine"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite"
+                    tools:ignore="Deprecated" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                app:hintTextColor="@color/colorWhite">
+
+                <EditText
+                    android:id="@+id/lng_tb_school"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:backgroundTint="@color/colorWhite"
+                    android:hint="Longitude"
+                    android:importantForAutofill="no"
+                    android:inputType="textImeMultiLine"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite"
+                    tools:ignore="Deprecated" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <CheckBox

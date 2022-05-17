@@ -358,6 +358,14 @@
                 android:layout_gravity="center"
                 android:background="@drawable/ic_baseline_gps_off_24"
                 tools:ignore="DuplicateIds"></ImageView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:id="@+id/accuracyGPS"
+                android:text="Accuracy(m):"></TextView>
 
 
             <com.google.android.material.textfield.TextInputLayout

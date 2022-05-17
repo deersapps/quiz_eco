@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.LocationManager;
-import android.media.Image;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -19,6 +18,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -43,7 +43,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import com.jkdeers.activitygame.GPSTracker;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnSignUp;
@@ -81,7 +80,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     Map<String, String> zonesMap = new HashMap<>();
     int selectedDistrictId, selectedSchoolId, selectedClassId, selectedUserId,selectedZoneId;
 
-    float lat_a,lng_a;
+    double lat_a,lng_a,acc;
+    TextView accuracyTv;
 
 
     @Override
@@ -119,6 +119,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         pas = findViewById(R.id.password_tb);
         latTb = findViewById(R.id.lat_tb);
         lngTb= findViewById(R.id.lng_tb);
+        accuracyTv = findViewById(R.id.accuracyGPS);
 
         GPSTracker gps;
         LocationManager locationManager;
@@ -130,9 +131,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             gps = new GPSTracker(SignUpActivity.this);
             lat_a= gps.getLatitude();
             lng_a= gps.getLongitude();
+            acc = gps.getAccuracy();
             latTb.setText(String.valueOf(lat_a));
             lngTb.setText(String.valueOf(lng_a));
+            accuracyTv.setText("Accuracy(m):"+String.valueOf(acc));
             Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + lat_a + "\nLong: " + lng_a, Toast.LENGTH_SHORT).show();
+
         }
         else{
             gpsIconFirstRun.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_off_24));

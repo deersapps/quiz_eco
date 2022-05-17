@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -51,6 +54,10 @@ public class RegisterSchool extends AppCompatActivity {
     CheckBox schoolAgree;
     Button RegisterButton;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    EditText lngTbShool,latTbSchool;
+    double lat_a_school,lng_a_school,accSchool;
+    TextView accuracyTvSchool;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +72,14 @@ public class RegisterSchool extends AppCompatActivity {
         schoolUdise = findViewById(R.id.school_UDISE);
         schoolAgree = findViewById(R.id.schoolSignUpCheckbox);
         RegisterButton = findViewById(R.id.register_school_button);
+        latTbSchool = findViewById(R.id.lat_tb_school);
+        lngTbShool= findViewById(R.id.lng_tb_school);
+        accuracyTvSchool = findViewById(R.id.accuracySchoolGPS);
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (schoolAgree.isChecked()) {
                     if (checkFields()) {
-                        addPointForm();
+                        addSchool();
 
                     } else {
                         Toast.makeText(getApplicationContext(), "Please correct errors", Toast.LENGTH_SHORT).show();
@@ -86,6 +96,49 @@ public class RegisterSchool extends AppCompatActivity {
                if (buttonView.isChecked()) {
                     schoolAgree.setError(null);
                 }
+            }
+        });
+
+        GPSTracker gps;
+        LocationManager locationManager;
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        final boolean isGPSEnabled=locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        final ImageView gpsIconFirstRunRegisterSchool=(ImageView) findViewById(R.id.image_icon_gps_school);
+        if (isGPSEnabled){
+            gpsIconFirstRunRegisterSchool.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_not_fixed_24));
+            gps = new GPSTracker(RegisterSchool.this);
+            lat_a_school= gps.getLatitude();
+            lng_a_school= gps.getLongitude();
+            accSchool = gps.getAccuracy();
+            latTbSchool.setText(String.valueOf(lat_a_school));
+            lngTbShool.setText(String.valueOf(lng_a_school));
+            accuracyTvSchool.setText("Accuracy(m):"+String.valueOf(accSchool));
+            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + lat_a_school + "\nLong: " + lng_a_school, Toast.LENGTH_SHORT).show();
+        }
+        else{
+            gpsIconFirstRunRegisterSchool.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_off_24));
+        }
+
+
+
+
+        gpsIconFirstRunRegisterSchool.setOnClickListener(new View.OnClickListener() {
+            GPSTracker gps;
+            @Override
+            public void onClick(View arg0) {
+                // create class object
+                gps = new GPSTracker(RegisterSchool.this);
+
+                // check if GPS enabled
+                if(gps.canGetLocation()){
+                    lat_a_school= gps.getLatitude();
+                    lng_a_school= gps.getLongitude();
+                    latTbSchool.setText(String.valueOf(lat_a_school));
+                    lngTbShool.setText(String.valueOf(lng_a_school));
+                }else{
+                    gps.showSettingsAlert();
+                }
+
             }
         });
     }
@@ -205,7 +258,16 @@ public class RegisterSchool extends AppCompatActivity {
         }));
     }
 
-    private void   addPointForm() {
+    private void addSchool() {
+        GPSTracker gps;
+        LocationManager locationManager;
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        final boolean isGPSEnabled=locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        gps = new GPSTracker(RegisterSchool.this);
+        if (!isGPSEnabled) {
+            gps.showSettingsAlert();
+        }
+
         final ProgressDialog loading = ProgressDialog.show(this,"Creating your account ","Please wait");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         JSONObject object = new JSONObject();
@@ -320,5 +382,37 @@ public class RegisterSchool extends AppCompatActivity {
         } else  {
             return  true;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+
+        LocationManager locationManager;
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        final boolean isGPSEnabled=locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        super.onResume();
+        final ImageView GPSbuttonSchool=(ImageView) findViewById(R.id.image_icon_gps_school);
+        if (isGPSEnabled){
+            Toast.makeText(getApplicationContext(), "GPS ENABLED" , Toast.LENGTH_LONG).show();
+            GPSbuttonSchool.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_not_fixed_24));
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "GPS DISABLED CLICK THE LOCATION BUTTON  ON TOP TO ENABLE IT" , Toast.LENGTH_LONG).show();
+            GPSbuttonSchool.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_off_24));
+        }
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1) {
+            Log.v("blah", "blah blah");
+            ImageView schoolGPSOnResult = (ImageView) findViewById(R.id.image_icon_gps);
+            schoolGPSOnResult.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_baseline_gps_not_fixed_24));
+        }
+
+
     }
 }
