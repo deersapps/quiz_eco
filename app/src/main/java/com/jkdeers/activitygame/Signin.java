@@ -45,6 +45,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.jkdeers.activitygame.databinding.ActivityMainBinding;
+import com.jkdeers.activitygame.ui.home.HomeFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -93,7 +94,8 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                 break;
             }
             case R.id.btnLogin:{
-                loginProcess();
+             //   loginProcess();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
             }
             case R.id.btnSignUp:{
@@ -210,7 +212,7 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
 //                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         // going back to register screen after registration
                         try {
-                            if (response.get("status") == "success") {
+                            if (response.get("status") == "Success") {
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
                             } else  {
