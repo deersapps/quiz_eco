@@ -522,7 +522,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         object.put("Age", 12);
                         object.put("Address", "test");
                         object.put("Pincode", "test");
-                        object.put("IsActive", false);
+                        object.put("IsActive", true);
                         object.put("DOB","2001-05-03T17:21:27.717");
                         object.put("AndroidId",android_id);
             } catch (JSONException e) {
@@ -545,6 +545,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
                                 Intent intentLoginStudent = new Intent(getApplicationContext(),Signin.class);
                                 startActivity(intentLoginStudent);
+                                finish();
 
                             } else if (s.equals("AL_EXISTS")) {
 

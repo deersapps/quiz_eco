@@ -94,8 +94,8 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                 break;
             }
             case R.id.btnLogin:{
-             //   loginProcess();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+               loginProcess();
+              //  startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
             }
             case R.id.btnSignUp:{
@@ -205,22 +205,39 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //after email sent and data added to sheets we dismiss the progress screen
                         loading.dismiss();
+                        String s ="";
+                        try {
+                            s = (String) response.get("status");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        switch (s) {
+                            case "Success":{
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            }
+                            default:{
+
+                                //  startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                try {
+                                    Toast.makeText(getApplicationContext(), "status is " + response.get("message"), Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                // startActivity(new Intent(getApplicationContext(), Signin.class));
+                                finish();
+                            }
+
+                        }
+
+                        //after email sent and data added to sheets we dismiss the progress screen
+
 
                         //  getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 //                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         // going back to register screen after registration
-                        try {
-                            if (response.get("status") == "Success") {
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            } else  {
-                                Toast.makeText(getApplicationContext(), "status is " + response.get("message"), Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
 
 
 

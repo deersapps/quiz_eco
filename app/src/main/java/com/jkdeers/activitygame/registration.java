@@ -21,6 +21,7 @@ public class registration extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentStudent = new Intent(getApplicationContext(),Signin.class);
                 startActivity(intentStudent);
+                finish();
             }
         });
 
@@ -29,6 +30,7 @@ public class registration extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentSchool = new Intent(getApplicationContext(), RegisterSchool.class);
                 startActivity(intentSchool);
+                finish();
             }
         });
     }
