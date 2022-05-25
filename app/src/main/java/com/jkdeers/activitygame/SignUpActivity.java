@@ -468,15 +468,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     private void registerUser() {
-        GPSTracker gps;
-        LocationManager locationManager;
-        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-        final boolean isGPSEnabled=locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        gps = new GPSTracker(SignUpActivity.this);
-        if (!isGPSEnabled) {
-            gps.showSettingsAlert();
-        }
-        // final ProgressDialog loading = ProgressDialog.show(this,"Registering you now","Please wait");
         fns = fn.getText().toString().trim();
         lns = ln.getText().toString().trim();
         diss = dis.getText().toString().trim();
@@ -495,68 +486,101 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         pass = pas.getText().toString().trim();
         int min = 0;
         int max = 9999;
-
         isAllFieldsChecked = CheckAllFields();
         if (isAllFieldsChecked) {
             Toast.makeText(getApplicationContext(), "All validations passed", Toast.LENGTH_SHORT).show();
+            GPSTracker gps;
+            LocationManager locationManager;
+            locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+            final boolean isGPSEnabled=locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            gps = new GPSTracker(SignUpActivity.this);
+            if (!isGPSEnabled) {
+                gps.showSettingsAlert();
+            }
+            // final ProgressDialog loading = ProgressDialog.show(this,"Registering you now","Please wait");
+
+
+
+            JSONObject object = new JSONObject();
+
+
+            try {
+                        object.put("FirstName",fns);
+                        object.put("LastName", lns);
+                        object.put( "DistrictId",selectedDistrictId);
+                        object.put( "ZoneId",selectedZoneId);
+                        object.put( "SchoolId", selectedSchoolId);
+                        object.put("ClassId", selectedClassId);
+                        object.put("PhoneNumber", phs);
+                        object.put("Email", ems);
+                        object.put("UserName", uns);
+                        object.put("Password", pass);
+                        object.put("latitude", "34.0352758");
+                        object.put("longitude", "74.5866882");
+                        object.put("Section", "1");
+                        object.put("RollNumber", "541");
+                        object.put("Age", 12);
+                        object.put("Address", "test");
+                        object.put("Pincode", "test");
+                        object.put("IsActive", false);
+                        object.put("DOB","2001-05-03T17:21:27.717");
+                        object.put("AndroidId",android_id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "https://orbisliferesearch.com/api/AuthenticationApi/register", object,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            String s="";
+                            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            try {
+                                s = (String) response.get("status");
+                            } catch (Error | JSONException e) {
+                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                            }
+                            if (s.equals("Success")) {
+
+                                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                                Intent intentLoginStudent = new Intent(getApplicationContext(),Signin.class);
+                                startActivity(intentLoginStudent);
+
+                            } else if (s.equals("AL_EXISTS")) {
+
+                                Toast.makeText(getApplicationContext(), "This username already taken", Toast.LENGTH_LONG).show();
+                                un.setError("try a different user name");
+
+                            } else {
+                                Toast.makeText(getApplicationContext(), s.toString(), Toast.LENGTH_LONG).show();
+                            }
+                            Log.i("res", String.valueOf(response));
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("************************* \n*****\n****", String.valueOf(error));
+
+                        }
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> parmas = new HashMap<>();
+                    return parmas;
+                }
+            };
+            int socketTimeOut = 50000;// u can change this .. here it is 50 seconds
+            RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            jsonObjectRequest.setRetryPolicy(retryPolicy);
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+            queue.add(jsonObjectRequest);
+
+
         } else {
             Toast.makeText(getApplicationContext(), "Please check errors", Toast.LENGTH_SHORT).show();
         }
-        JSONObject object = new JSONObject();
-
-
-        try {
-                    object.put("FirstName","Sheikh Shuaib");
-                    object.put("LastName", "Ashraf");
-                    object.put( "DistrictId",1);
-                    object.put( "ZoneId",1);
-                    object.put( "SchoolId", 1);
-                    object.put("ClassId", 4);
-                    object.put("PhoneNumber", "9898989887");
-                    object.put("Email", "asimjan123@gmail.com");
-                    object.put("UserName", "TestUAsim123");
-                    object.put("Password", "Very@3434");
-                    object.put("latitude", "34.0352758");
-                    object.put("longitude", "74.5866882");
-                    object.put("Section", "1");
-                    object.put("RollNumber", "541");
-                    object.put("Age", 12);
-                    object.put("Address", "test");
-                    object.put("Pincode", "test");
-                    object.put("IsActive", false);
-                    object.put("DOB","2001-05-03T17:21:27.717");
-                    object.put("AndroidId","test234324sf");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "https://orbisliferesearch.com/api/AuthenticationApi/register", object,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        Log.i("res", String.valueOf(response));
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("************************* \n*****\n****", String.valueOf(error));
-
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> parmas = new HashMap<>();
-                return parmas;
-            }
-        };
-        int socketTimeOut = 50000;// u can change this .. here it is 50 seconds
-        RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        jsonObjectRequest.setRetryPolicy(retryPolicy);
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        queue.add(jsonObjectRequest);
     }
     void getDistrictsFromAPI() {
         final ProgressDialog loading = ProgressDialog.show(this,"Fetching List of school in this district","Please wait");
@@ -686,66 +710,85 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (fn.length() == 0) {
             fn.setError("Name is required");
             return false;
+        } else  {
+            fn.setError(null);
         }
 
         if (ln.length() == 0) {
             ln.setError("Last Name is required");
             return false;
+        } else  {
+            ln.setError(null);
         }
 
-        if (dis.getText().toString().trim().equals("District") || diss.length() == 0) {
+        if (diss.equals("District") || diss.length() == 0) {
             dis.setError("Please select district");
             return false;
+        } else  {
+            dis.setError(null);
         }
 
-        if (school.getText().toString().trim().equals("Other")) {
+        if (schools.equals("Other")) {
             if (otherEditTextBoxSchoolView.getVisibility() == View.VISIBLE)
             if (OtherSchoolName.length() == 0) {
                 otherEditTextBoxSchoolView.setError("Please fill in the school name");
                 return false;
+            }  else  {
+                otherEditTextBoxSchoolView.setError(null);
             }
         }
-        if (school.getText().toString().trim().equals("School") || schools.length() == 0) {
+        if (schools.equals("School") || schools.length() == 0) {
             school.setError("Please select School");
             return false;
+        } else  {
+            school.setError(null);
         }
-        if (cl.getText().toString().trim().equals("Class") || cls.length() == 0) {
+        if (cls.equals("Class") || cls.length() == 0) {
             cl.setError("Please select Class");
             return false;
+        } else  {
+            cl.setError(null);
         }
-        if (sec.getText().toString().trim().equals("Section") || sect.length() == 0 ) {
+        if (sect.equals("Section") || sect.length() == 0 ) {
             sec.setError("Please select section");
             return false;
-        } else if (pas.length() < 7 || !pas.getText().toString().trim().matches(passwordPattern)) {
+        } else  {
+            sec.setError(null);
+        }
+        if (pass.length() < 7 || !pass.trim().matches(passwordPattern)) {
             pas.setError("pass has to be atleast one digit, one lower, one upper , one special and >7 chars and no white space is allowed");
             return false;
-        } else if (ph.length() < 10 || ph.length() > 10) {
+        }else  {
+            pas.setError(null);
+        }
+        if (phs.length() < 10 || phs.length() > 10) {
             ph.setError("Invalid Phone number");
             return false;
+        }else  {
+            ph.setError(null);
         }
-        else if (!em.getText().toString().trim().matches(emailPattern)) {
+        if (!ems.trim().matches(emailPattern)) {
             em.setError("Please enter valid email");
             return false;
-        } else if (un.length()<5) {
+        } else  {
+            em.setError(null);
+        }
+        if (uns.length()<5) {
             un.setError("Username too short");
             return false;
-        } else if (zn.length() == 0 || zn.getText().equals("Zones")) {
-            zn.setError("Select Zones");
+        } else  {
+            un.setError(null);
         }
-        zn.setError(null);
-        school.setError(null);
-        fn.setError(null);
-        ln.setError(null);
-        dis.setError(null);
-        school.setError(null);
+        if (zns.length() == 0 || zns.equals("Zones")) {
+            zn.setError("Select Zones");
+        } else  {
+            zn.setError(null);
+        }
+
         if (otherEditTextBoxSchoolView.getVisibility() == View.VISIBLE) {
             otherEditTextBoxSchoolView.setError(null);
         }
-        cl.setError(null);
-        sec.setError(null);
-        pas.setError(null);
-        ph.setError(null);
-        em.setError(null);
+
         // after all validation return true.
         return true;
     }
